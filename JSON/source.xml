@@ -1,0 +1,145 @@
+<application>
+	<test>
+		<source>
+			<![CDATA[aAaA]]>
+		</source>
+		<source>
+			<![CDATA[<test>sahahaha</test>]]>
+		</source>
+		<source>
+			<![CDATA[<test>sahahaha</test>]]>
+		</source>
+	</test>
+	<license>
+		<public_key>
+			D:\Users\Andika Permana\.notula\public.key
+		</public_key>
+		<license>
+			D:\Users\Andika Permana\.notula\notula.lic
+		</license>
+		<password>
+			1 31 483 492 486 491 489 483
+		</password>
+		<private_key>
+			D:\Users\Andika Permana\.notula\private.key
+		</private_key>
+		<holder_name>
+			PT Bahasa Kita
+		</holder_name>
+	</license>
+	<backup>
+		<folder>
+			D:\Users\Andika Permana\.notula\backup
+		</folder>
+		<status>
+			true
+		</status>
+	</backup>
+	<speaker_recognizer>
+		<length_of_audio>
+			9600000
+		</length_of_audio>
+	</speaker_recognizer>
+	<port>
+		8080
+	</port>
+	<log>
+		<folder>
+			D:\Users\Andika Permana\.notula\log
+		</folder>
+	<expired/>
+	</log>
+	<risalah>
+		<max_sentence_paragraph>
+			8
+		</max_sentence_paragraph>
+	</risalah>
+	<audio>
+		<intensity>
+			500
+		</intensity>
+		<numb_of_last_segment>
+			6400
+		</numb_of_last_segment>
+		<sample_rate>
+			16000
+		</sample_rate>
+		<sample_size>
+			16
+		</sample_size>
+		<big_endian>
+			false
+		</big_endian>
+		<minimum_byte_segment>
+			32000
+		</minimum_byte_segment>
+		<buffer_size>
+			3200
+		</buffer_size>
+		<channel>
+			1
+		</channel>
+		<time_delay>
+			500
+		</time_delay>
+		<audioFormat>
+			PCM_SIGNED 16000.0 Hz, 16 bit, mono, 2 bytes/frame, little-endian
+		</audioFormat>
+		<frame_size>
+			2
+		</frame_size>
+		<frame_rate>
+			16000
+		</frame_rate>
+	</audio>
+	<authentication>
+		<security>
+			<prime>
+				1 31 432 438 435 437
+			</prime>
+			<server>
+				<public_x>
+					386 715 370 369 374
+				</public_x>
+				<public_y>
+					1 31 435 435 443 442
+				</public_y>
+			</server>
+			<a4>
+				1 31 439 443 435
+			</a4>
+			<curve_y>
+				125 1198 1124 1126
+			</curve_y>
+			<curve_x>
+				1076 1817 2323
+			</curve_x>
+			<a6>
+				125 1198 1124 1121 1134
+			</a6>
+			<client>
+				<private>
+					1111 958 2300 2296 2301
+				</private>
+				<public_x>
+					1 31 432 432 439 435
+				</public_x>
+				<public_y>
+					386 715 374 373 372
+				</public_y>
+			</client>
+			<order>
+				1 31 438
+			</order>
+		</security>
+		<port>
+			8282
+		</port>
+		<host>
+			10.226.174.34
+		</host>
+		<time_out>
+			20000
+		</time_out>
+	</authentication>
+</application>
