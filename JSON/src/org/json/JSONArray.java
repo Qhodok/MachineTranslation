@@ -31,6 +31,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -144,6 +145,10 @@ public class JSONArray {
         this(new JSONTokener(source));
     }
 
+    public boolean contains(Object object){
+        return this.myArrayList.contains(object);
+    }
+    
     /**
      * Construct a JSONArray from a Collection.
      *
@@ -196,6 +201,9 @@ public class JSONArray {
         return object;
     }
 
+    public List<Object> getValues(){
+        return this.myArrayList;
+    }
     /**
      * Get the boolean value associated with an index. The string values "true"
      * and "false" are converted to boolean.

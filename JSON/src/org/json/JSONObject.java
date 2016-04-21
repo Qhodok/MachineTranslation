@@ -558,9 +558,11 @@ public class JSONObject {
         Object object = this.get(key);
         if (object instanceof JSONArray) {
             return (JSONArray) object;
+        }else{
+            JSONArray data = new JSONArray();
+            data.put(object);
+            return data;
         }
-        throw new JSONException("JSONObject[" + quote(key)
-                + "] is not a JSONArray.");
     }
 
     /**
