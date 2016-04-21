@@ -45,3 +45,6 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+/MachineTranslation/dist/
+/MachineTranslation/nbproject/private/private.properties
+/JSON/nbproject/private/private.properties
