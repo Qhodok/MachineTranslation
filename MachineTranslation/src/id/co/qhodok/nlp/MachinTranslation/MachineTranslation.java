@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package id.co.qhodok.nlp.MachinTranslation;
 
 import id.co.qhodok.nlp.MachinTranslation.model.LanguageModel;
 import id.co.qhodok.nlp.MachinTranslation.model.TranslationModel;
+import id.co.qhodok.nlp.MachinTranslation.model.WordReordering;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,16 +16,26 @@ import java.util.List;
  * @author Andika
  */
 public class MachineTranslation {
+
     protected TranslationModel translationModel;
     protected LanguageModel sourceLanguageModel;
     protected LanguageModel targetLanguageModel;
-    public MachineTranslation(){
+
+    public MachineTranslation() {
         this.translationModel = new TranslationModel();
         this.sourceLanguageModel = new LanguageModel();
         this.targetLanguageModel = new LanguageModel();
     }
-    public void training(String sourceCospus, String targetCorpus, HashMap<String, List<String>>dictionary,int maxOrder){
-        this.translationModel.generateTranslationModel(sourceCospus, targetCorpus, dictionary, "\n");
+
+    public void training(String sourceCospus, String targetCorpus, int maxOrder, boolean useReordering) {
+        if (useReordering) {
+            String temp = "";
+            for (String sentence : sourceCospus.split("\n")) {
+                temp += WordReordering.reordering(sentence)+"\n";
+            }
+            sourceCospus = temp;
+        }
+        this.translationModel.generateTranslationModel(sourceCospus, targetCorpus, "\n");
         this.sourceLanguageModel.addCorpus(sourceCospus);
         this.sourceLanguageModel.addDelimeter("\n+");
         this.sourceLanguageModel.generateLM(maxOrder);
@@ -33,16 +43,20 @@ public class MachineTranslation {
         this.targetLanguageModel.addDelimeter("\n+");
         this.targetLanguageModel.generateLM(maxOrder);
     }
-    public String translation(String sentence){
-        HashMap<String[], Double> computeTranslation = this.translationModel.computeTranslation(sentence);
-        for(String[] listOfWord:computeTranslation.keySet()){
+
+    public String translation(String sentence, boolean useReordering) {
+        if(useReordering){
+            sentence = WordReordering.reordering(sentence);
+        }
+        HashMap<String[], Double> computeTranslation = this.translationModel.computeTranslation(WordReordering.reordering(sentence));
+        for (String[] listOfWord : computeTranslation.keySet()) {
             double computeProbabilities = sourceLanguageModel.computeProbabilities(sentence.trim().split("\\s+"));
             double computeProbabilities1 = targetLanguageModel.computeProbabilities(listOfWord);
-            System.out.println(arrayToString(listOfWord) + " == "+((computeTranslation.get(listOfWord)*computeProbabilities))/computeProbabilities1);
+            System.out.println(arrayToString(listOfWord) + " == " + ((computeTranslation.get(listOfWord) * computeProbabilities)) / computeProbabilities1);
         }
         return "";
     }
-            
+
     protected String arrayToString(String[] words) {
         String result = "";
         for (String word : words) {

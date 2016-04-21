@@ -5,8 +5,8 @@
  */
 package id.co.qhodok.nlp.MachinTranslation.model;
 
+import id.co.qhodok.nlp.MachinTranslation.Utils.Util;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  *
@@ -20,14 +20,14 @@ public class TranslationModel {
         this.wordRelation = new HashMap<>();
     }
 
-    public void generateTranslationModel(String sourceCorpus, String targetCorpus, HashMap<String, List<String>> dictionary, String delimeter) {
+    public void generateTranslationModel(String sourceCorpus, String targetCorpus,  String delimeter) {
         String[] sourceSentences = sourceCorpus.split(delimeter);
         String[] targetSentences = targetCorpus.split(delimeter);
         String[] sourceWords, targetWords;
         int sourceIndex = 0, targetIndex = 0;
         String prevUnknowWord = null;
         int prevIndexUnkonWord = -1;
-        double totalValue = 0D;
+        double totalValue = 0.D;
         HashMap<String, Double> translation;
         if (sourceSentences.length == targetSentences.length) {
             for (int i = 0; i < sourceSentences.length; i++) {
@@ -35,8 +35,8 @@ public class TranslationModel {
                 targetWords = targetSentences[i].trim().split("\\s+");
                 targetIndex = 0;
                 for (sourceIndex = 0; sourceIndex < sourceWords.length; sourceIndex++) {
-                    if (dictionary.containsKey(sourceWords[sourceIndex])) {
-                        if (!this.addTranslation(sourceIndex, targetIndex, sourceWords, targetWords, dictionary)) {
+                    if (Util.DICTIONARY.has(sourceWords[sourceIndex])) {
+                        if (!this.addTranslation(sourceIndex, targetIndex, sourceWords, targetWords)) {
                             //handle cross translation
                         } else {
                             targetIndex++;
@@ -62,8 +62,8 @@ public class TranslationModel {
         }
     }
 
-    protected boolean addTranslation(int sourceIndex, int targetIndex, String[] sourceWords, String[] targetWords, HashMap<String, List<String>> dictionary) {
-        if (dictionary.containsKey(sourceWords[sourceIndex])) {
+    protected boolean addTranslation(int sourceIndex, int targetIndex, String[] sourceWords, String[] targetWords) {
+        if (Util.DICTIONARY.has(sourceWords[sourceIndex])) {
             if (this.wordRelation.containsKey(sourceWords[sourceIndex])) {
                 if (this.wordRelation.get(sourceWords[sourceIndex]).containsKey(targetWords[targetIndex])) {
                     this.wordRelation.get(sourceWords[sourceIndex]).put(targetWords[targetIndex], this.wordRelation.get(sourceWords[sourceIndex]).get(targetWords[targetIndex]) + 1);
