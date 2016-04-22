@@ -23,10 +23,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         String target = Util.read("sample" + File.separatorChar + "ind.txt").trim().toLowerCase();
         String source = Util.read("sample" + File.separatorChar + "eng.txt").trim().toLowerCase();
-        Util.init("sample"+File.separatorChar+"dict.xml");
-                
         MachineTranslation machineTranslation = new MachineTranslation();
-        machineTranslation.training(source, target, 2,true);
+        machineTranslation.training(source, target,"sample"+File.separatorChar+"dict.xml", 2,true);
         machineTranslation.translation("my name is andika putra permana",true);
     }
 

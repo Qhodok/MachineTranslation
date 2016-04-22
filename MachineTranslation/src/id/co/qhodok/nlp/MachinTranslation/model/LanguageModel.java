@@ -5,9 +5,13 @@
  */
 package id.co.qhodok.nlp.MachinTranslation.model;
 
+import id.co.qhodok.nlp.MachinTranslation.Utils.Util;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import org.json.JSONObject;
+import org.json.XML;
 
 /**
  *
@@ -26,12 +30,31 @@ public class LanguageModel {
         this.delimeter = "";
         this.cospus = "";
     }
+    
+    public LanguageModel(String pathFile) {
+        this.Ngram = new HashMap<>();
+        this.order = new HashMap<>();
+        this.delimeter = "";
+        this.cospus = "";
+        this.loadData(pathFile);
+    }
 
     public void addCorpus(String corpus) {
         this.cospus += corpus + "\n";
     }
 
-    public void loadLM(String lmData) {
+    protected void loadData(String pathdird) {
+        try {
+            this.Ngram = (HashMap<Integer, HashMap<String, Double>>) XML.toJSONObject(Util.read(pathdird + File.separator + "ngram.dict")).getMap();
+            this.order = (HashMap<Integer, HashMap<String, HashMap<String, Double>>>) XML.toJSONObject(Util.read(pathdird + File.separator + "order.dict")).getMap();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void save(String pathdir) {
+        Util.write(pathdir + File.separator + "ngram.dict", XML.toString(new JSONObject(this.Ngram)));
+        Util.write(pathdir + File.separator + "order.dict", XML.toString(new JSONObject(this.order)));
     }
 
     public void addDelimeter(String delimeter) {
@@ -67,18 +90,18 @@ public class LanguageModel {
                         prev = tempNode[i].replaceFirst("\\S+{" + i + "}$", "").trim();
                         //if (!prev.replaceAll("_\\s*", "").trim().isEmpty()) {
                         //System.out.println("if 2");
-                            next = tempNode[i].replaceFirst(prev, "").trim();
-                            if (this.order.get(i).containsKey(prev)) {
-                                if (this.order.get(i).get(prev).containsKey(next)) {
-                                    this.order.get(i).get(prev).put(next, this.order.get(i).get(prev).get(next) + 1);
-                                } else {
-                                    this.order.get(i).get(prev).put(next, 1.D);
-                                }
+                        next = tempNode[i].replaceFirst(prev, "").trim();
+                        if (this.order.get(i).containsKey(prev)) {
+                            if (this.order.get(i).get(prev).containsKey(next)) {
+                                this.order.get(i).get(prev).put(next, this.order.get(i).get(prev).get(next) + 1);
                             } else {
-                                this.order.get(i).put(prev, new HashMap<String, Double>());
                                 this.order.get(i).get(prev).put(next, 1.D);
                             }
-                            //System.out.println(tempNode[i] + " prev = " + prev + " :: next = " + next+"\n");
+                        } else {
+                            this.order.get(i).put(prev, new HashMap<String, Double>());
+                            this.order.get(i).get(prev).put(next, 1.D);
+                        }
+                        //System.out.println(tempNode[i] + " prev = " + prev + " :: next = " + next+"\n");
                         //}
                     }
                 }
@@ -92,29 +115,30 @@ public class LanguageModel {
         String prev = "", next = "";
         double currentValue = 0, totalValue = 0;
         for (int index : this.Ngram.keySet()) {
-            if(index > 0){
-            for (String ngram : this.Ngram.get(index).keySet()) {
-                try {
-                    prev = ngram.trim().replaceFirst("\\S+{" + index + "}$", "").trim();
-                    next = ngram.trim().replaceFirst(prev, "").trim();
-                    currentValue = this.order.get(index).get(prev).get(next);
-                    totalValue = 0;
-                    for (String nextOrder : this.order.get(index).get(prev).keySet()) {
-                        totalValue += this.order.get(index).get(prev).get(nextOrder);
-                    }
-                    this.Ngram.get(index).put(ngram, currentValue / totalValue);
-                } catch (Exception e) {
-                    
+            if (index > 0) {
+                for (String ngram : this.Ngram.get(index).keySet()) {
+                    try {
+                        prev = ngram.trim().replaceFirst("\\S+{" + index + "}$", "").trim();
+                        next = ngram.trim().replaceFirst(prev, "").trim();
+                        currentValue = this.order.get(index).get(prev).get(next);
+                        totalValue = 0;
+                        for (String nextOrder : this.order.get(index).get(prev).keySet()) {
+                            totalValue += this.order.get(index).get(prev).get(nextOrder);
+                        }
+                        this.Ngram.get(index).put(ngram, currentValue / totalValue);
+                    } catch (Exception e) {
+
                         System.out.println(ngram);
-                        System.out.println(prev+" "+next);
+                        System.out.println(prev + " " + next);
                         //System.out.println(this.order);
                         System.out.println(this.order.get(index));
-                        System.out.println(prev+" "+this.order.get(index).get(prev));
+                        System.out.println(prev + " " + this.order.get(index).get(prev));
                         System.out.println(next);//+" "+this.order.get(index).get(prev).get(next));
                         System.out.println("\n\n");
                         //e.printStackTrace();
+                    }
                 }
-            }}
+            }
         }
     }
 

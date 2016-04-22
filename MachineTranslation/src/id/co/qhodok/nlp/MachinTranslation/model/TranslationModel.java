@@ -6,7 +6,13 @@
 package id.co.qhodok.nlp.MachinTranslation.model;
 
 import id.co.qhodok.nlp.MachinTranslation.Utils.Util;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.JSONObject;
+import org.json.XML;
 
 /**
  *
@@ -19,7 +25,18 @@ public class TranslationModel {
     public TranslationModel() {
         this.wordRelation = new HashMap<>();
     }
+    public TranslationModel(String pathfile) {
+        try {
+            this.wordRelation = (HashMap<String, HashMap<String, Double>>) XML.toJSONObject(Util.read(pathfile+File.separator+"translation.dict")).getMap();
+        } catch (IOException ex) {
+            Logger.getLogger(TranslationModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
+    public void save(String pathfile){
+        Util.write(pathfile+"translation.dict", XML.toString(new JSONObject(this.wordRelation)));
+    }
+    
     public void generateTranslationModel(String sourceCorpus, String targetCorpus,  String delimeter) {
         String[] sourceSentences = sourceCorpus.split(delimeter);
         String[] targetSentences = targetCorpus.split(delimeter);

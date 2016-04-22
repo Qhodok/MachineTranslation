@@ -20,7 +20,7 @@ import org.json.XML;
  *
  * @author Andika Permana
  */
-public class Util {
+public final class Util {
 
     public static JSONObject DICTIONARY;
     public static JSONObject GRAMMAR;
