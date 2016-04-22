@@ -3,9 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package id.co.qhodok.nlp.MachinTranslationAPP;
 
+import id.co.qhodok.nlp.MachinTranslation.MachineTranslation;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 
 /**
@@ -19,9 +23,15 @@ public class FormTraining extends javax.swing.JFrame {
      */
     protected FormTesting formTesting;
     protected JFileChooser fileChooser;
+    protected MachineTranslation machineTranslation;
+    protected String sourceFile;
+    protected String targetFile;
+    protected String dictFile;
+
     public FormTraining(FormTesting formTesting) {
         this.formTesting = formTesting;
         this.fileChooser = new JFileChooser();
+        this.machineTranslation = new MachineTranslation();
         initComponents();
     }
 
@@ -64,8 +74,18 @@ public class FormTraining extends javax.swing.JFrame {
         });
 
         indCorpusTextField.setEditable(false);
+        indCorpusTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                indCorpusTextFieldActionPerformed(evt);
+            }
+        });
 
         dictTextField.setEditable(false);
+        dictTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dictTextFieldActionPerformed(evt);
+            }
+        });
 
         englishCorpusButton.setText("search");
         englishCorpusButton.addActionListener(new java.awt.event.ActionListener() {
@@ -75,10 +95,25 @@ public class FormTraining extends javax.swing.JFrame {
         });
 
         IndButtonCorpus.setText("search");
+        IndButtonCorpus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IndButtonCorpusActionPerformed(evt);
+            }
+        });
 
         dictButtonCorpus.setText("search");
+        dictButtonCorpus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dictButtonCorpusActionPerformed(evt);
+            }
+        });
 
         trainingButton.setText("training");
+        trainingButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trainingButtonActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("File");
 
@@ -155,12 +190,76 @@ public class FormTraining extends javax.swing.JFrame {
     }//GEN-LAST:event_testingMenuActionPerformed
 
     private void englishCorpusTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_englishCorpusTextFieldActionPerformed
-        // TODO add your handling code here:
+        if (this.fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try {
+                this.sourceFile = this.fileChooser.getSelectedFile().getCanonicalPath();
+                this.englishCorpusTextField.setText(this.sourceFile);
+            } catch (IOException ex) {
+                Logger.getLogger(FormTraining.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_englishCorpusTextFieldActionPerformed
 
     private void englishCorpusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_englishCorpusButtonActionPerformed
-       
+        if (this.fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try {
+                this.sourceFile = this.fileChooser.getSelectedFile().getCanonicalPath();
+                this.englishCorpusTextField.setText(this.sourceFile);
+            } catch (IOException ex) {
+                Logger.getLogger(FormTraining.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_englishCorpusButtonActionPerformed
+
+    private void indCorpusTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_indCorpusTextFieldActionPerformed
+        if (this.fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try {
+                this.targetFile = this.fileChooser.getSelectedFile().getCanonicalPath();
+                this.indCorpusTextField.setText(this.targetFile);
+            } catch (IOException ex) {
+                Logger.getLogger(FormTraining.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_indCorpusTextFieldActionPerformed
+
+    private void dictTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dictTextFieldActionPerformed
+        if (this.fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try {
+                this.dictFile = this.fileChooser.getSelectedFile().getCanonicalPath();
+                this.dictTextField.setText(this.dictFile);
+            } catch (IOException ex) {
+                Logger.getLogger(FormTraining.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_dictTextFieldActionPerformed
+
+    private void dictButtonCorpusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dictButtonCorpusActionPerformed
+        if (this.fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try {
+                this.dictFile = this.fileChooser.getSelectedFile().getCanonicalPath();
+                this.dictTextField.setText(this.dictFile);
+            } catch (IOException ex) {
+                Logger.getLogger(FormTraining.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_dictButtonCorpusActionPerformed
+
+    private void IndButtonCorpusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IndButtonCorpusActionPerformed
+        if (this.fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try {
+                this.targetFile = this.fileChooser.getSelectedFile().getCanonicalPath();
+                this.indCorpusTextField.setText(this.targetFile);
+            } catch (IOException ex) {
+                Logger.getLogger(FormTraining.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_IndButtonCorpusActionPerformed
+
+    private void trainingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trainingButtonActionPerformed
+       this.machineTranslation.training(sourceFile, targetFile,this.dictFile, 2, true);
+       new File(System.getProperty("user.home")+File.separator+".machine_translation").mkdirs();
+       this.machineTranslation.save(System.getProperty("user.home")+File.separator+".machine_translation");
+    }//GEN-LAST:event_trainingButtonActionPerformed
 
     /**
      * @param args the command line arguments

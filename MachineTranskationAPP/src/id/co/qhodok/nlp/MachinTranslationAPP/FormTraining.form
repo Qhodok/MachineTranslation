@@ -135,11 +135,17 @@
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="indCorpusTextFieldActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="dictTextField">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dictTextFieldActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="englishCorpusButton">
       <Properties>
@@ -153,16 +159,25 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="search"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="IndButtonCorpusActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="dictButtonCorpus">
       <Properties>
         <Property name="text" type="java.lang.String" value="search"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dictButtonCorpusActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="trainingButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="training"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trainingButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
