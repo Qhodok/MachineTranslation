@@ -256,6 +256,9 @@ public class JSONObject {
         }
     }
 
+    public Map getMap(){
+        return this.map;
+    }
     /**
      * Construct a JSONObject from an Object using bean getters. It reflects on
      * all of the public methods of the object. For each of the methods with no
