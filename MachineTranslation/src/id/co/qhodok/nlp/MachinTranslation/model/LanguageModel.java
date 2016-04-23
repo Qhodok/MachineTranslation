@@ -20,20 +20,20 @@ import org.json.XML;
 public class LanguageModel {
 
     protected HashMap<Integer, HashMap<String, Double>> Ngram;
-    protected HashMap<Integer, HashMap<String, HashMap<String, Double>>> order;
+    protected HashMap<Integer, HashMap<String, HashMap<String, Double>>> frequenceWordLink;
     protected String cospus;
     protected String delimeter;
 
     public LanguageModel() {
         this.Ngram = new HashMap<>();
-        this.order = new HashMap<>();
+        this.frequenceWordLink = new HashMap<>();
         this.delimeter = "";
         this.cospus = "";
     }
     
     public LanguageModel(String pathFile) {
         this.Ngram = new HashMap<>();
-        this.order = new HashMap<>();
+        this.frequenceWordLink = new HashMap<>();
         this.delimeter = "";
         this.cospus = "";
         this.loadData(pathFile);
@@ -46,7 +46,6 @@ public class LanguageModel {
     protected void loadData(String pathdird) {
         try {
             this.Ngram = (HashMap<Integer, HashMap<String, Double>>) XML.toJSONObject(Util.read(pathdird + File.separator + "ngram.dict")).getMap();
-            this.order = (HashMap<Integer, HashMap<String, HashMap<String, Double>>>) XML.toJSONObject(Util.read(pathdird + File.separator + "order.dict")).getMap();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -54,7 +53,7 @@ public class LanguageModel {
 
     public void save(String pathdir) {
         Util.write(pathdir + File.separator + "ngram.dict", XML.toString(new JSONObject(this.Ngram)));
-        Util.write(pathdir + File.separator + "order.dict", XML.toString(new JSONObject(this.order)));
+        Util.write(pathdir + File.separator + "order.dict", XML.toString(new JSONObject(this.frequenceWordLink)));
     }
 
     public void addDelimeter(String delimeter) {
@@ -70,7 +69,7 @@ public class LanguageModel {
         String prev = "", next = "";
         for (int i = 0; i < maxgram; i++) {
             this.Ngram.put(i, new HashMap<String, Double>());
-            this.order.put(i, new HashMap<String, HashMap<String, Double>>());
+            this.frequenceWordLink.put(i, new HashMap<String, HashMap<String, Double>>());
         }
         for (String segmentedCorpus : this.cospus.split(this.delimeter)) {
             for (int i = 0; i < maxgram; i++) {
@@ -91,23 +90,22 @@ public class LanguageModel {
                         //if (!prev.replaceAll("_\\s*", "").trim().isEmpty()) {
                         //System.out.println("if 2");
                         next = tempNode[i].replaceFirst(prev, "").trim();
-                        if (this.order.get(i).containsKey(prev)) {
-                            if (this.order.get(i).get(prev).containsKey(next)) {
-                                this.order.get(i).get(prev).put(next, this.order.get(i).get(prev).get(next) + 1);
+                        if (this.frequenceWordLink.get(i).containsKey(prev)) {
+                            if (this.frequenceWordLink.get(i).get(prev).containsKey(next)) {
+                                this.frequenceWordLink.get(i).get(prev).put(next, this.frequenceWordLink.get(i).get(prev).get(next) + 1);
                             } else {
-                                this.order.get(i).get(prev).put(next, 1.D);
+                                this.frequenceWordLink.get(i).get(prev).put(next, 1.D);
                             }
                         } else {
-                            this.order.get(i).put(prev, new HashMap<String, Double>());
-                            this.order.get(i).get(prev).put(next, 1.D);
+                            this.frequenceWordLink.get(i).put(prev, new HashMap<String, Double>());
+                            this.frequenceWordLink.get(i).get(prev).put(next, 1.D);
                         }
-                        //System.out.println(tempNode[i] + " prev = " + prev + " :: next = " + next+"\n");
-                        //}
                     }
                 }
             }
         }
         this.computeNgram();
+        this.frequenceWordLink.clear();
         return this.Ngram;
     }
 
@@ -120,10 +118,10 @@ public class LanguageModel {
                     try {
                         prev = ngram.trim().replaceFirst("\\S+{" + index + "}$", "").trim();
                         next = ngram.trim().replaceFirst(prev, "").trim();
-                        currentValue = this.order.get(index).get(prev).get(next);
+                        currentValue = this.frequenceWordLink.get(index).get(prev).get(next);
                         totalValue = 0;
-                        for (String nextOrder : this.order.get(index).get(prev).keySet()) {
-                            totalValue += this.order.get(index).get(prev).get(nextOrder);
+                        for (String nextOrder : this.frequenceWordLink.get(index).get(prev).keySet()) {
+                            totalValue += this.frequenceWordLink.get(index).get(prev).get(nextOrder);
                         }
                         this.Ngram.get(index).put(ngram, currentValue / totalValue);
                     } catch (Exception e) {
@@ -131,8 +129,8 @@ public class LanguageModel {
                         System.out.println(ngram);
                         System.out.println(prev + " " + next);
                         //System.out.println(this.order);
-                        System.out.println(this.order.get(index));
-                        System.out.println(prev + " " + this.order.get(index).get(prev));
+                        System.out.println(this.frequenceWordLink.get(index));
+                        System.out.println(prev + " " + this.frequenceWordLink.get(index).get(prev));
                         System.out.println(next);//+" "+this.order.get(index).get(prev).get(next));
                         System.out.println("\n\n");
                         //e.printStackTrace();
