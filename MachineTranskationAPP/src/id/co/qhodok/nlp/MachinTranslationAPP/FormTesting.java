@@ -23,7 +23,11 @@ public class FormTesting extends javax.swing.JFrame {
     public FormTesting() {
         initComponents();
         this.trainingForm = new FormTraining(this);
-        this.machineTranslation = new MachineTranslation(System.getProperty("user.home") + File.separator + ".machine_translation");
+        if (new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "translation.dict").exists()
+                && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "ngram.dict").exists()
+                && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "other.dict").exists()) {
+            this.machineTranslation = new MachineTranslation(System.getProperty("user.home") + File.separator + ".machine_translation");
+        }
     }
 
     /**
@@ -108,7 +112,19 @@ public class FormTesting extends javax.swing.JFrame {
     }//GEN-LAST:event_trainingMenuActionPerformed
 
     private void translateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_translateActionPerformed
-        this.indoText.setText(this.machineTranslation.translation(this.englishText.getText(), true));
+
+        if (this.machineTranslation == null) {
+            if (new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "translation.dict").exists()
+                    && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "ngram.dict").exists()
+                    && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "other.dict").exists()) {
+                this.machineTranslation = new MachineTranslation(System.getProperty("user.home") + File.separator + ".machine_translation");
+                this.indoText.setText(this.machineTranslation.translation(this.englishText.getText(), true));
+            }else{
+                System.out.println("data tidak ada, silahkan training data terlebih dahulu");
+            }
+        } else {
+            this.indoText.setText(this.machineTranslation.translation(this.englishText.getText(), true));
+        }
     }//GEN-LAST:event_translateActionPerformed
 
     /**
