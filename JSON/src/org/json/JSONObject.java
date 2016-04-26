@@ -138,7 +138,7 @@ public class JSONObject {
     /**
      * The map where the JSONObject's properties are kept.
      */
-    private final Map<String, Object> map;
+    private Map<String, Object> map;
 
     /**
      * It is sometimes more convenient and less ambiguous to have a
@@ -283,6 +283,21 @@ public class JSONObject {
     public JSONObject(Object bean) {
         this();
         this.populateMap(bean);
+    }
+    
+    public JSONObject setMap(Map map){
+        this.map = new HashMap<String, Object>();
+        if (map != null) {
+            Iterator<Entry<String, Object>> i = map.entrySet().iterator();
+            while (i.hasNext()) {
+                Entry<String, Object> entry = i.next();
+                Object value = entry.getValue();
+                if (value != null) {
+                    this.map.put(entry.getKey(), wrap(value));
+                }
+            }
+        }
+        return this;
     }
 
     /**

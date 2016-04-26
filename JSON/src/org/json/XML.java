@@ -199,8 +199,9 @@ public class XML {
             if (!token.equals(name)) {
                 throw x.syntaxError("Mismatched " + name + " and " + token);
             }
-            if (x.nextToken() != GT) {
-                throw x.syntaxError("Misshaped close tag");
+            token = x.nextToken();
+            if (token != GT) {
+                throw x.syntaxError("Misshaped close tag ("+token+") != "+GT);
             }
             return true;
 
