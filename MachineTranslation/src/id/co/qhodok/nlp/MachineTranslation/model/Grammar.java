@@ -7,8 +7,6 @@
 package id.co.qhodok.nlp.MachineTranslation.model;
 
 import id.co.qhodok.nlp.MachineTranslation.Utils.Util;
-import java.util.ArrayList;
-import java.util.List;
 import org.json.JSONArray;
 
 /**
