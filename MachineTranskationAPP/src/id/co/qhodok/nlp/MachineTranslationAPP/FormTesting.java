@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package id.co.qhodok.nlp.MachinTranslationAPP;
+package id.co.qhodok.nlp.MachineTranslationAPP;
 
-import id.co.qhodok.nlp.MachinTranslation.MachineTranslation;
+import id.co.qhodok.nlp.MachineTranslation.MachineTranslation;
 import java.io.File;
 
 /**
@@ -114,9 +114,10 @@ public class FormTesting extends javax.swing.JFrame {
     private void translateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_translateActionPerformed
 
         if (this.machineTranslation == null) {
+            System.out.println(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "translation.dict");
+            System.out.println(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "ngram.dict");
             if (new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "translation.dict").exists()
-                    && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "ngram.dict").exists()
-                    && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "other.dict").exists()) {
+                    && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "ngram.dict").exists()) {
                 this.machineTranslation = new MachineTranslation(System.getProperty("user.home") + File.separator + ".machine_translation");
                 this.indoText.setText(this.machineTranslation.translation(this.englishText.getText(), true));
             }else{

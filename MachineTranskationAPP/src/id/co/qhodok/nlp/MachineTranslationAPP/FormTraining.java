@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package id.co.qhodok.nlp.MachinTranslationAPP;
+package id.co.qhodok.nlp.MachineTranslationAPP;
 
-import id.co.qhodok.nlp.MachinTranslation.MachineTranslation;
+import id.co.qhodok.nlp.MachineTranslation.MachineTranslation;
+import id.co.qhodok.nlp.MachineTranslation.Utils.Util;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -54,6 +55,7 @@ public class FormTraining extends javax.swing.JFrame {
         IndButtonCorpus = new javax.swing.JButton();
         dictButtonCorpus = new javax.swing.JButton();
         trainingButton = new javax.swing.JButton();
+        resultLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         testingMenu = new javax.swing.JMenuItem();
@@ -136,26 +138,25 @@ public class FormTraining extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addGap(46, 46, 46)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(indCorpusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(IndButtonCorpus))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(dictTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(dictButtonCorpus))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(englishCorpusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(englishCorpusButton))))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
                     .addComponent(trainingButton))
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(resultLabel)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(indCorpusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(IndButtonCorpus))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(dictTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dictButtonCorpus))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(englishCorpusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(englishCorpusButton)))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -177,7 +178,9 @@ public class FormTraining extends javax.swing.JFrame {
                     .addComponent(dictTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dictButtonCorpus))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(trainingButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(trainingButton)
+                    .addComponent(resultLabel))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -256,9 +259,18 @@ public class FormTraining extends javax.swing.JFrame {
     }//GEN-LAST:event_IndButtonCorpusActionPerformed
 
     private void trainingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trainingButtonActionPerformed
-       this.machineTranslation.training(sourceFile, targetFile,this.dictFile, 2, true);
-       new File(System.getProperty("user.home")+File.separator+".machine_translation").mkdirs();
-       this.machineTranslation.save(System.getProperty("user.home")+File.separator+".machine_translation");
+        try {
+            long startTime = System.currentTimeMillis();
+            this.machineTranslation.training(Util.read(this.sourceFile).toLowerCase(), Util.read(this.targetFile).toLowerCase(), this.dictFile, 2, true);
+            new File(System.getProperty("user.home") + File.separator + ".machine_translation").mkdirs();
+            this.machineTranslation.save(System.getProperty("user.home") + File.separator + ".machine_translation");
+            long endTime = System.currentTimeMillis();
+            TimeProcess timeProcess = new TimeProcess(endTime - startTime);
+            this.resultLabel.setText("Pelatihan Selesai dengan waktu pelatihan " + timeProcess.hours + " jam, " + timeProcess.minutes + " menit, " + timeProcess.second + " detik, " + timeProcess.milisecond + " milisecon");
+
+        } catch (Exception ex) {
+            Logger.getLogger(FormTraining.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_trainingButtonActionPerformed
 
     /**
@@ -277,6 +289,7 @@ public class FormTraining extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JLabel resultLabel;
     private javax.swing.JMenuItem testingMenu;
     private javax.swing.JButton trainingButton;
     // End of variables declaration//GEN-END:variables
