@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package id.co.qhodok.nlp.MachinTranslation.Utils;
+package id.co.qhodok.nlp.MachineTranslation.Utils;
 
 import java.io.File;
 import java.io.FileInputStream;

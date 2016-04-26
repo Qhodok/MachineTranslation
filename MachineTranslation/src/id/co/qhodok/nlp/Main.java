@@ -5,9 +5,9 @@
  */
 package id.co.qhodok.nlp;
 
-import id.co.qhodok.nlp.MachinTranslation.MachineTranslation;
-import id.co.qhodok.nlp.MachinTranslation.Utils.Util;
-import id.co.qhodok.nlp.MachinTranslation.model.WordReordering;
+import id.co.qhodok.nlp.MachineTranslation.MachineTranslation;
+import id.co.qhodok.nlp.MachineTranslation.Utils.Util;
+import id.co.qhodok.nlp.MachineTranslation.model.WordReordering;
 import java.io.File;
 import java.io.IOException;
 
@@ -26,6 +26,7 @@ public class Main {
         MachineTranslation machineTranslation = new MachineTranslation();
         machineTranslation.training(source, target,"sample"+File.separatorChar+"dict.xml", 2,true);
         machineTranslation.translation("my name is andika putra permana",true);
+        machineTranslation.save(System.getProperty("user.home") + File.separator + ".machine_translation");
     }
 
 }

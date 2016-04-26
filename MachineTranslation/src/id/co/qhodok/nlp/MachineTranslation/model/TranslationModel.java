@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package id.co.qhodok.nlp.MachinTranslation.model;
+package id.co.qhodok.nlp.MachineTranslation.model;
 
-import id.co.qhodok.nlp.MachinTranslation.Utils.Util;
+import id.co.qhodok.nlp.MachineTranslation.Utils.Util;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -35,7 +35,7 @@ public class TranslationModel {
     }
 
     public void save(String pathfile) {
-        Util.write(pathfile + "translation.dict", XML.toString(new JSONObject(this.wordTranslation)));
+        Util.write(pathfile+File.separator + "translation.dict", XML.toString(new JSONObject().setMap(this.wordTranslation)));
     }
 
     public void generateTranslationModel(String sourceCorpus, String targetCorpus, String delimeter) {

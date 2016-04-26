@@ -4,10 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/H:/Users/Andika/Documents/Project/MachineTranslation/MachineTranslation/src/id/co/qhodok/nlp/Main.java</file>
-            <file>file:/H:/Users/Andika/Documents/Project/MachineTranslation/MachineTranslation/src/id/co/qhodok/nlp/MachinTranslation/model/LanguageModel.java</file>
-            <file>file:/H:/Users/Andika/Documents/Project/MachineTranslation/MachineTranslation/src/id/co/qhodok/nlp/MachinTranslation/model/TranslationModel.java</file>
-            <file>file:/H:/Users/Andika/Documents/Project/MachineTranslation/MachineTranslation/src/id/co/qhodok/nlp/MachinTranslation/Utils/Util.java</file>
-            <file>file:/H:/Users/Andika/Documents/Project/MachineTranslation/MachineTranslation/src/id/co/qhodok/nlp/MachinTranslation/MachineTranslation.java</file>
+            <file>file:/H:/Users/Andika/Documents/Project/MachineTranslation/MachineTranslation/src/id/co/qhodok/nlp/MachineTranslation/model/LanguageModel.java</file>
+            <file>file:/H:/Users/Andika/Documents/Project/MachineTranslation/MachineTranslation/src/id/co/qhodok/nlp/MachineTranslation/model/TranslationModel.java</file>
+            <file>file:/H:/Users/Andika/Documents/Project/MachineTranslation/MachineTranslation/src/id/co/qhodok/nlp/MachineTranslation/model/LinkGrammar.java</file>
+            <file>file:/H:/Users/Andika/Documents/Project/MachineTranslation/MachineTranslation/src/id/co/qhodok/nlp/MachineTranslation/MachineTranslation.java</file>
         </group>
     </open-files>
 </project-private>

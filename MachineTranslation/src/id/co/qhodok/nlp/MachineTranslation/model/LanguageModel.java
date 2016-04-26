@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package id.co.qhodok.nlp.MachinTranslation.model;
+package id.co.qhodok.nlp.MachineTranslation.model;
 
-import id.co.qhodok.nlp.MachinTranslation.Utils.Util;
+import id.co.qhodok.nlp.MachineTranslation.Utils.Util;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.json.JSONObject;
 import org.json.XML;
 
@@ -19,8 +20,8 @@ import org.json.XML;
  */
 public class LanguageModel {
 
-    protected HashMap<Integer, HashMap<String, Double>> Ngram;
-    protected HashMap<Integer, HashMap<String, HashMap<String, Double>>> frequenceWordLink;
+    protected Map<String, HashMap<String, Double>> Ngram;
+    protected Map<Integer, HashMap<String, HashMap<String, Double>>> frequenceWordLink;
     protected String cospus;
     protected String delimeter;
 
@@ -45,15 +46,14 @@ public class LanguageModel {
 
     protected void loadData(String pathdird) {
         try {
-            this.Ngram = (HashMap<Integer, HashMap<String, Double>>) XML.toJSONObject(Util.read(pathdird + File.separator + "ngram.dict")).getMap();
+            this.Ngram = (HashMap<String, HashMap<String, Double>>) XML.toJSONObject(Util.read(pathdird + File.separator + "ngram.dict")).getMap();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
     public void save(String pathdir) {
-        Util.write(pathdir + File.separator + "ngram.dict", XML.toString(new JSONObject(this.Ngram)));
-        Util.write(pathdir + File.separator + "order.dict", XML.toString(new JSONObject(this.frequenceWordLink)));
+        Util.write(pathdir + File.separator + "ngram.dict", XML.toString(new JSONObject().setMap(this.Ngram)));
     }
 
     public void addDelimeter(String delimeter) {
@@ -68,7 +68,7 @@ public class LanguageModel {
         String[] tempNode = new String[maxgram];
         String prev = "", next = "";
         for (int i = 0; i < maxgram; i++) {
-            this.Ngram.put(i, new HashMap<String, Double>());
+            this.Ngram.put(String.valueOf(i), new HashMap<String, Double>());
             this.frequenceWordLink.put(i, new HashMap<String, HashMap<String, Double>>());
         }
         for (String segmentedCorpus : this.cospus.split(this.delimeter)) {
@@ -85,7 +85,7 @@ public class LanguageModel {
                     }
                     if (tempNode[i].split("\\s+").length >= i && !tempNode[i].replaceAll("_\\s*", "").trim().isEmpty()) {
                         //System.out.println("if 1");
-                        this.Ngram.get(i).put(tempNode[i], 1.D);
+                        this.Ngram.get(String.valueOf(i)).put(tempNode[i], 1.D);
                         prev = tempNode[i].replaceFirst("\\S+{" + i + "}$", "").trim();
                         //if (!prev.replaceAll("_\\s*", "").trim().isEmpty()) {
                         //System.out.println("if 2");
@@ -106,34 +106,34 @@ public class LanguageModel {
         }
         this.computeNgram();
         this.frequenceWordLink.clear();
-        return this.Ngram;
+        return (HashMap)this.Ngram;
     }
 
     protected void computeNgram() {
         String prev = "", next = "";
         double currentValue = 0, totalValue = 0;
-        for (int index : this.Ngram.keySet()) {
-            if (index > 0) {
+        for (String index : this.Ngram.keySet()) {
+            if (Integer.valueOf(index) > 0) {
                 for (String ngram : this.Ngram.get(index).keySet()) {
                     try {
                         prev = ngram.trim().replaceFirst("\\S+{" + index + "}$", "").trim();
                         next = ngram.trim().replaceFirst(prev, "").trim();
-                        currentValue = this.frequenceWordLink.get(index).get(prev).get(next);
+                        currentValue = this.frequenceWordLink.get(Integer.valueOf(index)).get(prev).get(next);
                         totalValue = 0;
-                        for (String nextOrder : this.frequenceWordLink.get(index).get(prev).keySet()) {
-                            totalValue += this.frequenceWordLink.get(index).get(prev).get(nextOrder);
+                        for (String nextOrder : this.frequenceWordLink.get(Integer.valueOf(index)).get(prev).keySet()) {
+                            totalValue += this.frequenceWordLink.get(Integer.valueOf(index)).get(prev).get(nextOrder);
                         }
                         this.Ngram.get(index).put(ngram, currentValue / totalValue);
                     } catch (Exception e) {
 
-                        System.out.println(ngram);
+                        /*System.out.println(ngram);
                         System.out.println(prev + " " + next);
                         //System.out.println(this.order);
                         System.out.println(this.frequenceWordLink.get(index));
-                        System.out.println(prev + " " + this.frequenceWordLink.get(index).get(prev));
+                        System.out.println(prev + " " + this.frequenceWordLink.get(Integer.valueOf(index)).get(prev));
                         System.out.println(next);//+" "+this.order.get(index).get(prev).get(next));
-                        System.out.println("\n\n");
-                        //e.printStackTrace();
+                        System.out.println("\n\n");*/
+                        e.printStackTrace();
                     }
                 }
             }
@@ -149,11 +149,11 @@ public class LanguageModel {
             for (int i = this.Ngram.size() - 1; i >= 0; i--) {
                 if (index + i < target.length) {
                     temp = this.arrayToString(target, index, index + i);
-                    if (this.Ngram.get(i).containsKey(temp)) {
+                    if (this.Ngram.get(String.valueOf(i)).containsKey(temp)) {
                         if (probabilities == 0) {
-                            probabilities = this.Ngram.get(i).get(temp);
+                            probabilities = this.Ngram.get(String.valueOf(i)).get(temp);
                         } else {
-                            probabilities *= this.Ngram.get(i).get(temp);
+                            probabilities *= this.Ngram.get(String.valueOf(i)).get(temp);
                         }
                         found = true;
                         break;

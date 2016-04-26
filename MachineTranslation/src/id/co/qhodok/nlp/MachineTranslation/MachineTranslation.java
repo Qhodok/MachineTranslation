@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package id.co.qhodok.nlp.MachinTranslation;
+package id.co.qhodok.nlp.MachineTranslation;
 
-import id.co.qhodok.nlp.MachinTranslation.Utils.Util;
-import id.co.qhodok.nlp.MachinTranslation.model.LanguageModel;
-import id.co.qhodok.nlp.MachinTranslation.model.TranslationModel;
-import id.co.qhodok.nlp.MachinTranslation.model.WordReordering;
+import id.co.qhodok.nlp.MachineTranslation.Utils.Util;
+import id.co.qhodok.nlp.MachineTranslation.model.LanguageModel;
+import id.co.qhodok.nlp.MachineTranslation.model.TranslationModel;
+import id.co.qhodok.nlp.MachineTranslation.model.WordReordering;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -23,18 +24,24 @@ public class MachineTranslation {
 
     protected TranslationModel translationModel;
     protected LanguageModel languageModel;
-
+    protected String dictFile;
     public MachineTranslation() {
         this.translationModel = new TranslationModel();
         this.languageModel = new LanguageModel();
     }
     public MachineTranslation(String pathfile) {
+        try {
+            Util.init(pathfile+File.separator+"dict.xml");
+        } catch (IOException ex) {
+            Logger.getLogger(MachineTranslation.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.translationModel = new TranslationModel(pathfile);
         this.languageModel = new LanguageModel(pathfile);
     }
 
     public void training(String sourceCospus, String targetCorpus, String dict, int maxOrder, boolean useReordering) {
         try {
+            this.dictFile = dict;
             Util.init(dict);
         } catch (IOException ex) {
             Logger.getLogger(MachineTranslation.class.getName()).log(Level.SEVERE, null, ex);
@@ -54,9 +61,14 @@ public class MachineTranslation {
     }
 
     public void save(String pathfile) {
-        this.languageModel.save(pathfile);
-        this.translationModel.save(pathfile);
-        Util.write(pathfile + "dict.xml", XML.toString(Util.DICTIONARY));
+        try {
+            this.languageModel.save(pathfile);
+            this.translationModel.save(pathfile);
+            Util.write(pathfile+File.separator + "dict.xml",Util.read(this.dictFile));
+            System.out.println("saved");
+        } catch (IOException ex) {
+            Logger.getLogger(MachineTranslation.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public String translation(String sentence, boolean useReordering) {
