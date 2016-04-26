@@ -8,8 +8,11 @@ package id.co.qhodok.nlp.MachineTranslation.Utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import org.json.JSONArray;
@@ -44,7 +47,7 @@ public final class Util {
         GRAMMAR_RELATION = new HashMap<>();
         for (String key : dataSource.getJSONObject("link-grammar").keySet()) {
             String left_grammar = dataSource.getJSONObject("link-grammar").getJSONObject(key).getString("left-grammar");
-            if(!GRAMMAR_RELATION.containsKey(left_grammar)){
+            if (!GRAMMAR_RELATION.containsKey(left_grammar)) {
                 GRAMMAR_RELATION.put(left_grammar, new HashMap<String, String>());
             }
             GRAMMAR_RELATION.get(left_grammar).put(dataSource.getJSONObject("link-grammar").getJSONObject(key).getString("right-grammar"), key);
@@ -69,5 +72,22 @@ public final class Util {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public static Object deserializing(String pathfile) throws FileNotFoundException, IOException, ClassNotFoundException {
+        FileInputStream fileIn = new FileInputStream(pathfile);
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        Object object = in.readObject();
+        in.close();
+        fileIn.close();
+        return object;
+    }
+
+    public static void serializing(String pathfile,Object object) throws FileNotFoundException, IOException {
+        FileOutputStream fileOut = new FileOutputStream(pathfile);
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(object);
+        out.close();
+        fileOut.close();
     }
 }

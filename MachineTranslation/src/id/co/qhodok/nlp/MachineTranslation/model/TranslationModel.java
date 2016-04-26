@@ -6,36 +6,18 @@
 package id.co.qhodok.nlp.MachineTranslation.model;
 
 import id.co.qhodok.nlp.MachineTranslation.Utils.Util;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.json.JSONObject;
-import org.json.XML;
 
 /**
  *
  * @author Andika
  */
-public class TranslationModel {
+public class TranslationModel implements java.io.Serializable{
 
     protected HashMap<String, HashMap<String, Double>> wordTranslation;
 
     public TranslationModel() {
         this.wordTranslation = new HashMap<>();
-    }
-
-    public TranslationModel(String pathfile) {
-        try {
-            this.wordTranslation = (HashMap<String, HashMap<String, Double>>) XML.toJSONObject(Util.read(pathfile + File.separator + "translation.dict")).getMap();
-        } catch (IOException ex) {
-            Logger.getLogger(TranslationModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void save(String pathfile) {
-        Util.write(pathfile+File.separator + "translation.dict", XML.toString(new JSONObject().setMap(this.wordTranslation)));
     }
 
     public void generateTranslationModel(String sourceCorpus, String targetCorpus, String delimeter) {

@@ -25,18 +25,20 @@ public class MachineTranslation {
     protected TranslationModel translationModel;
     protected LanguageModel languageModel;
     protected String dictFile;
+
     public MachineTranslation() {
         this.translationModel = new TranslationModel();
         this.languageModel = new LanguageModel();
     }
+
     public MachineTranslation(String pathfile) {
         try {
-            Util.init(pathfile+File.separator+"dict.xml");
-        } catch (IOException ex) {
-            Logger.getLogger(MachineTranslation.class.getName()).log(Level.SEVERE, null, ex);
+            Util.init(pathfile + File.separator + "dict.xml");
+            this.translationModel = (TranslationModel) Util.deserializing(pathfile + File.separator + "tm.ser");
+            this.languageModel = (LanguageModel) Util.deserializing(pathfile + File.separator + "lm.ser");
+        } catch (Exception ex) {
+
         }
-        this.translationModel = new TranslationModel(pathfile);
-        this.languageModel = new LanguageModel(pathfile);
     }
 
     public void training(String sourceCospus, String targetCorpus, String dict, int maxOrder, boolean useReordering) {
@@ -62,9 +64,9 @@ public class MachineTranslation {
 
     public void save(String pathfile) {
         try {
-            this.languageModel.save(pathfile);
-            this.translationModel.save(pathfile);
-            Util.write(pathfile+File.separator + "dict.xml",Util.read(this.dictFile));
+            Util.serializing(pathfile + File.separator + "lm.ser", this.languageModel);
+            Util.serializing(pathfile + File.separator + "tm.ser", this.translationModel);
+            Util.write(pathfile + File.separator + "dict.xml", Util.read(this.dictFile));
             System.out.println("saved");
         } catch (IOException ex) {
             Logger.getLogger(MachineTranslation.class.getName()).log(Level.SEVERE, null, ex);
@@ -76,14 +78,14 @@ public class MachineTranslation {
             sentence = WordReordering.reordering(sentence);
         }
         String result = "";
-        double score = 0,tempScore = 0;
-        
+        double score = 0, tempScore = 0;
+
         HashMap<String[], Double> computeTranslation = this.translationModel.computeTranslation(WordReordering.reordering(sentence));
         for (String[] listOfWord : computeTranslation.keySet()) {
             double sourceProbabilities = languageModel.computeProbabilities(sentence.trim().split("\\s+"));
             double resultProbabilities = languageModel.computeProbabilities(listOfWord);
             tempScore = (computeTranslation.get(listOfWord) * sourceProbabilities) / resultProbabilities;
-            if(tempScore > score){
+            if (tempScore > score) {
                 score = tempScore;
                 result = arrayToString(listOfWord);
             }
