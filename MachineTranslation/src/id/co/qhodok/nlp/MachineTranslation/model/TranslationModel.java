@@ -25,8 +25,6 @@ public class TranslationModel implements java.io.Serializable{
         String[] targetSentences = targetCorpus.split(delimeter);
         String[] sourceWords, targetWords;
         int sourceIndex = 0, targetIndex = 0;
-        String prevUnknowWord = null;
-        int prevIndexUnkonWord = -1;
         double totalValue = 0.D;
         HashMap<String, Double> translation;
         if (sourceSentences.length == targetSentences.length) {

@@ -16,18 +16,18 @@ public class LanguageModel implements java.io.Serializable {
 
     protected Map<Integer, HashMap<String, Double>> Ngram;
     protected Map<Integer, HashMap<String, HashMap<String, Double>>> frequenceWordLink;
-    protected String cospus;
+    protected String corpus;
     protected String delimeter;
 
     public LanguageModel() {
         this.Ngram = new HashMap<>();
         this.frequenceWordLink = new HashMap<>();
         this.delimeter = "";
-        this.cospus = "";
+        this.corpus = "";
     }
     
     public void addCorpus(String corpus) {
-        this.cospus += corpus + "\n";
+        this.corpus += corpus + "\n";
     }
 
     public void addDelimeter(String delimeter) {
@@ -45,7 +45,7 @@ public class LanguageModel implements java.io.Serializable {
             this.Ngram.put(i, new HashMap<String, Double>());
             this.frequenceWordLink.put(i, new HashMap<String, HashMap<String, Double>>());
         }
-        for (String segmentedCorpus : this.cospus.split(this.delimeter)) {
+        for (String segmentedCorpus : this.corpus.split(this.delimeter)) {
             for (int i = 0; i < maxgram; i++) {
                 segmentedCorpus = "_ " + segmentedCorpus.trim() + " _";
                 tempNode[i] = "";
@@ -80,7 +80,7 @@ public class LanguageModel implements java.io.Serializable {
         }
         this.computeNgram();
         this.frequenceWordLink.clear();
-        this.cospus = "";
+        this.corpus = "";
         this.delimeter = "";
     }
 

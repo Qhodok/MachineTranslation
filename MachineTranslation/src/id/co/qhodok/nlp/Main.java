@@ -7,7 +7,6 @@ package id.co.qhodok.nlp;
 
 import id.co.qhodok.nlp.MachineTranslation.MachineTranslation;
 import id.co.qhodok.nlp.MachineTranslation.Utils.Util;
-import id.co.qhodok.nlp.MachineTranslation.model.WordReordering;
 import java.io.File;
 import java.io.IOException;
 
