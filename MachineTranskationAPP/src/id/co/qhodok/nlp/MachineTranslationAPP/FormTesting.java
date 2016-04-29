@@ -25,7 +25,7 @@ public class FormTesting extends javax.swing.JFrame {
         this.trainingForm = new FormTraining(this);
         if (new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "tm.ser").exists()
                 &&new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "lm.ser").exists()
-                && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "ngram.dict").exists()) {
+                && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "ngram.xml").exists()) {
             this.machineTranslation = new MachineTranslation(System.getProperty("user.home") + File.separator + ".machine_translation");
         }
     }
@@ -115,7 +115,7 @@ public class FormTesting extends javax.swing.JFrame {
         if (this.machineTranslation == null) {
             if (new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "tm.ser").exists()
                     && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "lm.ser").exists()
-                    && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "ngram.dict").exists()) {
+                    && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "dict.xml").exists()) {
                 this.machineTranslation = new MachineTranslation(System.getProperty("user.home") + File.separator + ".machine_translation");
                 this.indoText.setText(this.machineTranslation.translation(this.englishText.getText(), true));
             }else{
