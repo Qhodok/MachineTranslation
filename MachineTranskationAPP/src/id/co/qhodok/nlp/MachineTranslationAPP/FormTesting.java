@@ -23,9 +23,9 @@ public class FormTesting extends javax.swing.JFrame {
     public FormTesting() {
         initComponents();
         this.trainingForm = new FormTraining(this);
-        if (new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "translation.dict").exists()
-                && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "ngram.dict").exists()
-                && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "other.dict").exists()) {
+        if (new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "tm.ser").exists()
+                &&new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "lm.ser").exists()
+                && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "ngram.dict").exists()) {
             this.machineTranslation = new MachineTranslation(System.getProperty("user.home") + File.separator + ".machine_translation");
         }
     }
@@ -112,11 +112,9 @@ public class FormTesting extends javax.swing.JFrame {
     }//GEN-LAST:event_trainingMenuActionPerformed
 
     private void translateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_translateActionPerformed
-
         if (this.machineTranslation == null) {
-            System.out.println(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "translation.dict");
-            System.out.println(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "ngram.dict");
-            if (new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "translation.dict").exists()
+            if (new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "tm.ser").exists()
+                    && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "lm.ser").exists()
                     && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "ngram.dict").exists()) {
                 this.machineTranslation = new MachineTranslation(System.getProperty("user.home") + File.separator + ".machine_translation");
                 this.indoText.setText(this.machineTranslation.translation(this.englishText.getText(), true));
