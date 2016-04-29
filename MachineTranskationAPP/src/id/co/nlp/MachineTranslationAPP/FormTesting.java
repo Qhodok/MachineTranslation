@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package id.co.qhodok.nlp.MachineTranslationAPP;
+package id.co.nlp.MachineTranslationAPP;
 
-import id.co.qhodok.nlp.MachineTranslation.MachineTranslation;
+import id.co.nlp.MachineTranslation.MachineTranslation;
 import java.io.File;
 
 /**
