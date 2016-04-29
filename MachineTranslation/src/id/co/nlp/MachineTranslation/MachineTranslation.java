@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package id.co.qhodok.nlp.MachineTranslation;
+package id.co.nlp.MachineTranslation;
 
-import id.co.qhodok.nlp.MachineTranslation.Utils.Util;
-import id.co.qhodok.nlp.MachineTranslation.model.LanguageModel;
-import id.co.qhodok.nlp.MachineTranslation.model.TranslationModel;
-import id.co.qhodok.nlp.MachineTranslation.model.WordReordering;
+import id.co.nlp.MachineTranslation.Utils.Util;
+import id.co.nlp.MachineTranslation.model.LanguageModel;
+import id.co.nlp.MachineTranslation.model.TranslationModel;
+import id.co.nlp.MachineTranslation.model.WordReordering;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;

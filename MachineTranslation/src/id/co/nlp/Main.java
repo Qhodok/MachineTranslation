@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package id.co.qhodok.nlp;
+package id.co.nlp;
 
-import id.co.qhodok.nlp.MachineTranslation.MachineTranslation;
-import id.co.qhodok.nlp.MachineTranslation.Utils.Util;
+import id.co.nlp.MachineTranslation.MachineTranslation;
+import id.co.nlp.MachineTranslation.Utils.Util;
 import java.io.File;
 import java.io.IOException;
 
