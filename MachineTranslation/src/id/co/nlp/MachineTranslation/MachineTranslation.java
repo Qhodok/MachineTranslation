@@ -76,7 +76,6 @@ public class MachineTranslation {
         if (useReordering) {
             sentence = WordReordering.reordering(sentence);
         }
-        System.out.println("finish reordering "+sentence);
         String result = "";
         double score = 0, tempScore = 0;
 
