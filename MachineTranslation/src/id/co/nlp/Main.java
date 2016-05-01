@@ -20,12 +20,12 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-        String target = Util.read("sample" + File.separatorChar + "ind.txt").trim().toLowerCase();
-        String source = Util.read("sample" + File.separatorChar + "eng.txt").trim().toLowerCase();
-        MachineTranslation machineTranslation = new MachineTranslation();
-        machineTranslation.training(source, target,"sample"+File.separatorChar+"dict.xml", 2,true);
-        machineTranslation.translation("my name is andika putra permana",true);
-        machineTranslation.save(System.getProperty("user.home") + File.separator + ".machine_translation");
+        /*String target = Util.read("sample" + File.separatorChar + "ind.txt").trim().toLowerCase();
+        String source = Util.read("sample" + File.separatorChar + "eng.txt").trim().toLowerCase();*/
+        MachineTranslation machineTranslation = new MachineTranslation(System.getProperty("user.home") + File.separator + ".machine_translation");
+        //machineTranslation.training(source, target,"sample"+File.separatorChar+"dict.xml", 2,true);
+        System.out.println(machineTranslation.translation("my name is hhaaha hahaha",true));
+        //machineTranslation.save(System.getProperty("user.home") + File.separator + ".machine_translation");
     }
 
 }

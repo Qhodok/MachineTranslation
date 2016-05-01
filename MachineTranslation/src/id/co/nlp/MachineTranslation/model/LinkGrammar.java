@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package id.co.nlp.MachineTranslation.model;
 
 import id.co.nlp.MachineTranslation.Utils.Util;
@@ -15,25 +14,29 @@ import java.util.List;
  * @author Andika Permana
  */
 public class LinkGrammar {
+
     public List<Grammar> phrases;
-    public LinkGrammar(){
+
+    public LinkGrammar() {
         this.phrases = new ArrayList<>();
     }
-    public static LinkGrammar initLinkGrammar(String sentence){
+
+    public static LinkGrammar initLinkGrammar(String sentence) {
         LinkGrammar linkGrammar = new LinkGrammar();
-        for(String token : sentence.split("\\s+")){
-            linkGrammar.phrases.add(new Grammar(token,"noun"));
+        for (String token : sentence.split("\\s+")) {
+            linkGrammar.phrases.add(new Grammar(token, "noun"));
         }
         return linkGrammar;
-    } 
-    public static LinkGrammar initLinkGrammar(String[] tokens){
+    }
+
+    public static LinkGrammar initLinkGrammar(String[] tokens) {
         LinkGrammar linkGrammar = new LinkGrammar();
-        for(String token : tokens){
-            linkGrammar.phrases.add(new Grammar(token,"noun"));
+        for (String token : tokens) {
+            linkGrammar.phrases.add(new Grammar(token, "noun"));
         }
         return linkGrammar;
-    } 
-    
+    }
+
     public LinkGrammar generateLinkGrammar(String sentence) {
         LinkGrammar linkGrammar = this.generateLinkGrammar(LinkGrammar.initLinkGrammar(sentence), 0);
         int size = linkGrammar.phrases.size();
@@ -50,26 +53,29 @@ public class LinkGrammar {
         if (index < linkGrammar.phrases.size() - 2) {
             linkGrammar = this.generateLinkGrammar(linkGrammar, index + 1);
         }
-        boolean found = false;
-        String connectionClass = null;
-        for (Object leftWordClass : linkGrammar.phrases.get(index).classes.getValues()) {
-            for (Object rightWordClass : linkGrammar.phrases.get(index + 1).classes.getValues()) {
-                connectionClass = checkConnection((String) leftWordClass, (String) rightWordClass);
-                if (connectionClass != null) {
-                    Grammar phrase = new Grammar("", connectionClass);
-                    phrase.leftGrammar = linkGrammar.phrases.remove(index);
-                    phrase.rightGrammar = linkGrammar.phrases.remove(index);
-                    linkGrammar.phrases.add(index, phrase);
-                    found = true;
+        if (linkGrammar.phrases.size() > 1) {
+            boolean found = false;
+            String connectionClass = null;
+            for (Object leftWordClass : linkGrammar.phrases.get(index).classes.getValues()) {
+                for (Object rightWordClass : linkGrammar.phrases.get(index + 1).classes.getValues()) {
+                    connectionClass = checkConnection((String) leftWordClass, (String) rightWordClass);
+                    if (connectionClass != null) {
+                        Grammar phrase = new Grammar("", connectionClass);
+                        phrase.leftGrammar = linkGrammar.phrases.remove(index);
+                        phrase.rightGrammar = linkGrammar.phrases.remove(index);
+                        linkGrammar.phrases.add(index, phrase);
+                        found = true;
+                        break;
+                    }
+                }
+                if (found) {
                     break;
                 }
-            }
-            if (found) {
-                break;
             }
         }
         return linkGrammar;
     }
+
     protected String checkConnection(String left_class, String right_class) {
         left_class = Util.GRAMMAR.getString(left_class);
         right_class = Util.GRAMMAR.getString(right_class);
@@ -79,13 +85,14 @@ public class LinkGrammar {
             return null;
         }
     }
+
     public String toString(LinkGrammar linkGrammar) {
         String sentence = "";
         for (Grammar phrase : linkGrammar.phrases) {
             if (phrase.leftGrammar == null) {
-                sentence += " "+phrase.caption + " ";
+                sentence += " " + phrase.caption + " ";
             } else {
-                sentence += " "+this.toString(phrase.leftGrammar)+" "+this.toString(phrase.rightGrammar);
+                sentence += " " + this.toString(phrase.leftGrammar) + " " + this.toString(phrase.rightGrammar);
             }
         }
         return sentence.replaceAll("\\s+", " ").trim();
@@ -94,9 +101,9 @@ public class LinkGrammar {
     public String toString(Grammar phrase) {
         String sentence = "";
         if (phrase.leftGrammar == null) {
-            sentence += " "+phrase.caption + " ";
+            sentence += " " + phrase.caption + " ";
         } else {
-            sentence += " "+this.toString(phrase.leftGrammar)+" "+this.toString(phrase.rightGrammar);
+            sentence += " " + this.toString(phrase.leftGrammar) + " " + this.toString(phrase.rightGrammar);
         }
         return sentence.replaceAll("\\s+", " ").trim();
     }

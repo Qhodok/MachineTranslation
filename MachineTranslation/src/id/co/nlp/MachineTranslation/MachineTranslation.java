@@ -76,10 +76,11 @@ public class MachineTranslation {
         if (useReordering) {
             sentence = WordReordering.reordering(sentence);
         }
+        System.out.println("finish reordering "+sentence);
         String result = "";
         double score = 0, tempScore = 0;
 
-        HashMap<String[], Double> computeTranslation = this.translationModel.computeTranslation(WordReordering.reordering(sentence));
+        HashMap<String[], Double> computeTranslation = this.translationModel.computeTranslation(sentence);
         for (String[] listOfWord : computeTranslation.keySet()) {
             double sourceProbabilities = languageModel.computeProbabilities(sentence.trim().split("\\s+"));
             double resultProbabilities = languageModel.computeProbabilities(listOfWord);
