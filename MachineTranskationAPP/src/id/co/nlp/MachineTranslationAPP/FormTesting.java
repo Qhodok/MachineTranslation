@@ -25,7 +25,7 @@ public class FormTesting extends javax.swing.JFrame {
         this.trainingForm = new FormTraining(this);
         if (new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "tm.ser").exists()
                 &&new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "lm.ser").exists()
-                && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "ngram.xml").exists()) {
+                && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "dict.xml").exists()) {
             this.machineTranslation = new MachineTranslation(System.getProperty("user.home") + File.separator + ".machine_translation");
         }
     }
