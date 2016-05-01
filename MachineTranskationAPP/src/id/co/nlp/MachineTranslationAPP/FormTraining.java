@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import org.json.JSONObject;
 
 /**
  *
@@ -265,14 +266,33 @@ public class FormTraining extends javax.swing.JFrame {
             new File(System.getProperty("user.home") + File.separator + ".machine_translation").mkdirs();
             this.machineTranslation.save(System.getProperty("user.home") + File.separator + ".machine_translation");
             long endTime = System.currentTimeMillis();
-            TimeProcess timeProcess = new TimeProcess(endTime - startTime);
-            this.resultLabel.setText("Pelatihan Selesai dengan waktu pelatihan " + timeProcess.hours + " jam, " + timeProcess.minutes + " menit, " + timeProcess.second + " detik, " + timeProcess.milisecond + " milisecon");
+            JSONObject timeProcess = this.getTimeProcess(endTime-startTime);
+            this.resultLabel.setText("Pelatihan Selesai dengan waktu pelatihan " + timeProcess.get("hours") + " jam, " + timeProcess.get("minutes") + " menit, " + timeProcess.get("second") + " detik, " + timeProcess.get("milisecond") + " milisecon");
 
         } catch (Exception ex) {
             Logger.getLogger(FormTraining.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_trainingButtonActionPerformed
 
+    private JSONObject getTimeProcess(Long time){
+        JSONObject timeString = new JSONObject();
+        timeString.put("days", 0);
+        timeString.put("hours", 0);
+        timeString.put("menutes", 0);
+        timeString.put("second", 0);
+        timeString.put("milisecond", 0);
+        long temp = 0;
+        timeString.put("days", (int) (time / (1000 * 60 * 60 * 24)));
+        temp = (time - ((1000 * 60 * 60 * 24) * timeString.getInt("days")));
+        timeString.put("hours",(int) (temp / (1000 * 60 * 60)));
+        temp = (temp - (timeString.getInt("hours") * (1000 * 60 * 60)));
+        timeString.put("minutes",(int) (temp / (1000 * 60)));
+        temp = (temp - (timeString.getInt("minutes") * (1000 * 60)));
+        timeString.put("second", (temp / 1000));
+        temp = temp - (timeString.getInt("second") / 1000);
+        timeString.put("milisecond",(int) temp);
+        return timeString;
+    } 
     /**
      * @param args the command line arguments
      */
