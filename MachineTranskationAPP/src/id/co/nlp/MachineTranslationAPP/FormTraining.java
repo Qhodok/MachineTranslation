@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
 import org.json.JSONObject;
 
 /**
@@ -26,15 +28,16 @@ public class FormTraining extends javax.swing.JFrame {
     protected FormTesting formTesting;
     protected JFileChooser fileChooser;
     protected MachineTranslation machineTranslation;
-    protected String sourceFile;
-    protected String targetFile;
-    protected String dictFile;
+    protected String sourceFile = "";
+    protected String targetFile = "";
+    protected String dictFile = "";
 
     public FormTraining(FormTesting formTesting) {
         this.formTesting = formTesting;
         this.fileChooser = new JFileChooser();
         this.machineTranslation = new MachineTranslation();
         initComponents();
+        this.jMenu1.setVisible(false);
     }
 
     /**
@@ -57,6 +60,7 @@ public class FormTraining extends javax.swing.JFrame {
         dictButtonCorpus = new javax.swing.JButton();
         trainingButton = new javax.swing.JButton();
         resultLabel = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         testingMenu = new javax.swing.JMenuItem();
@@ -118,6 +122,13 @@ public class FormTraining extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("buka form testing");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("File");
 
         testingMenu.setText("Buka Halaman Testing ");
@@ -143,21 +154,26 @@ public class FormTraining extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel2)
                     .addComponent(trainingButton))
-                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(resultLabel)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(indCorpusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(IndButtonCorpus))
+                        .addGap(46, 46, 46)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(resultLabel)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(indCorpusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(IndButtonCorpus))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(dictTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(dictButtonCorpus))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(englishCorpusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(englishCorpusButton))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(dictTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(dictButtonCorpus))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(englishCorpusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(englishCorpusButton)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -181,7 +197,8 @@ public class FormTraining extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(trainingButton)
-                    .addComponent(resultLabel))
+                    .addComponent(resultLabel)
+                    .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -204,7 +221,34 @@ public class FormTraining extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_englishCorpusTextFieldActionPerformed
 
+    public class FileOpenFilter extends FileFilter {
+
+        private final String extention;
+        private final String description;
+
+        public FileOpenFilter(String extenstion, String description) {
+            this.extention = extenstion;
+            this.description = description;
+        }
+
+        @Override
+        public boolean accept(File file) {
+            if (file.isDirectory()) {
+                return false;
+            } else {
+                return file.getName().endsWith(this.extention);
+            }
+        }
+
+        @Override
+        public String getDescription() {
+            return this.description + String.format(" (*%s)", this.extention);
+        }
+
+    }
+
     private void englishCorpusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_englishCorpusButtonActionPerformed
+        this.fileChooser.setFileFilter(new FileOpenFilter("txt", "Data Latih BP"));
         if (this.fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
                 this.sourceFile = this.fileChooser.getSelectedFile().getCanonicalPath();
@@ -216,6 +260,7 @@ public class FormTraining extends javax.swing.JFrame {
     }//GEN-LAST:event_englishCorpusButtonActionPerformed
 
     private void indCorpusTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_indCorpusTextFieldActionPerformed
+        this.fileChooser.setFileFilter(new FileOpenFilter("txt", "Data Latih BP"));
         if (this.fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
                 this.targetFile = this.fileChooser.getSelectedFile().getCanonicalPath();
@@ -227,6 +272,7 @@ public class FormTraining extends javax.swing.JFrame {
     }//GEN-LAST:event_indCorpusTextFieldActionPerformed
 
     private void dictTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dictTextFieldActionPerformed
+        this.fileChooser.setFileFilter(new FileOpenFilter("xml", "Data Latih BP"));
         if (this.fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
                 this.dictFile = this.fileChooser.getSelectedFile().getCanonicalPath();
@@ -260,21 +306,31 @@ public class FormTraining extends javax.swing.JFrame {
     }//GEN-LAST:event_IndButtonCorpusActionPerformed
 
     private void trainingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trainingButtonActionPerformed
-        try {
-            long startTime = System.currentTimeMillis();
-            this.machineTranslation.training(Util.read(this.sourceFile).toLowerCase(), Util.read(this.targetFile).toLowerCase(), this.dictFile, 2, true);
-            new File(System.getProperty("user.home") + File.separator + ".machine_translation").mkdirs();
-            this.machineTranslation.save(System.getProperty("user.home") + File.separator + ".machine_translation");
-            long endTime = System.currentTimeMillis();
-            JSONObject timeProcess = this.getTimeProcess(endTime-startTime);
-            this.resultLabel.setText("Pelatihan Selesai dengan waktu pelatihan " + timeProcess.get("hours") + " jam, " + timeProcess.get("minutes") + " menit, " + timeProcess.get("second") + " detik, " + timeProcess.get("milisecond") + " milisecon");
-
-        } catch (Exception ex) {
-            Logger.getLogger(FormTraining.class.getName()).log(Level.SEVERE, null, ex);
+        if (this.sourceFile.isEmpty() || this.targetFile.isEmpty() || this.dictFile.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "data yang anda masukan kurang lengkap");
+        } else {
+            try {
+                long startTime = System.currentTimeMillis();
+                this.machineTranslation.training(Util.read(this.sourceFile).toLowerCase(), Util.read(this.targetFile).toLowerCase(), this.dictFile, 2, true);
+                new File(System.getProperty("user.home") + File.separator + ".machine_translation").mkdirs();
+                this.machineTranslation.save(System.getProperty("user.home") + File.separator + ".machine_translation");
+                long endTime = System.currentTimeMillis();
+                JSONObject timeProcess = this.getTimeProcess(endTime - startTime);
+                this.resultLabel.setText("Pelatihan Selesai dengan waktu pelatihan " + timeProcess.get("hours") + " jam, " + timeProcess.get("minutes") + " menit, " + timeProcess.get("second") + " detik, " + timeProcess.get("milisecond") + " milisecon");
+                JOptionPane.showMessageDialog(this, "training selesai");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage());
+                Logger.getLogger(FormTraining.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_trainingButtonActionPerformed
 
-    private JSONObject getTimeProcess(Long time){
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.formTesting.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private JSONObject getTimeProcess(Long time) {
         JSONObject timeString = new JSONObject();
         timeString.put("days", 0);
         timeString.put("hours", 0);
@@ -284,15 +340,15 @@ public class FormTraining extends javax.swing.JFrame {
         long temp = 0;
         timeString.put("days", (int) (time / (1000 * 60 * 60 * 24)));
         temp = (time - ((1000 * 60 * 60 * 24) * timeString.getInt("days")));
-        timeString.put("hours",(int) (temp / (1000 * 60 * 60)));
+        timeString.put("hours", (int) (temp / (1000 * 60 * 60)));
         temp = (temp - (timeString.getInt("hours") * (1000 * 60 * 60)));
-        timeString.put("minutes",(int) (temp / (1000 * 60)));
+        timeString.put("minutes", (int) (temp / (1000 * 60)));
         temp = (temp - (timeString.getInt("minutes") * (1000 * 60)));
         timeString.put("second", (temp / 1000));
         temp = temp - (timeString.getInt("second") / 1000);
-        timeString.put("milisecond",(int) temp);
+        timeString.put("milisecond", (int) temp);
         return timeString;
-    } 
+    }
     /**
      * @param args the command line arguments
      */
@@ -304,6 +360,7 @@ public class FormTraining extends javax.swing.JFrame {
     private javax.swing.JButton englishCorpusButton;
     private javax.swing.JTextField englishCorpusTextField;
     private javax.swing.JTextField indCorpusTextField;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
