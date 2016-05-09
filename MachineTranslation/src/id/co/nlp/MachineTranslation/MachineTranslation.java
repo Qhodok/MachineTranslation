@@ -40,7 +40,7 @@ public class MachineTranslation {
         }
     }
 
-    public void training(String sourceCospus, String targetCorpus, String dict, int maxOrder, boolean useReordering) {
+    public void training(String sourceCorpus, String targetCorpus, String dict, int maxOrder, boolean useReordering) {
         try {
             this.dictFile = dict;
             Util.init(dict);
@@ -49,13 +49,13 @@ public class MachineTranslation {
         }
         if (useReordering) {
             String temp = "";
-            for (String sentence : sourceCospus.split("\n")) {
+            for (String sentence : sourceCorpus.split("\n")) {
                 temp += WordReordering.reordering(sentence) + "\n";
             }
-            sourceCospus = temp;
+            sourceCorpus = temp;
         }
-        this.translationModel.generateTranslationModel(sourceCospus, targetCorpus, "\n");
-        this.languageModel.addCorpus(sourceCospus);
+        this.translationModel.generateTranslationModel(sourceCorpus, targetCorpus, "\n");
+        this.languageModel.addCorpus(sourceCorpus);
         this.languageModel.addCorpus(targetCorpus);
         this.languageModel.addDelimeter("\n+");
         this.languageModel.generateLM(maxOrder);
