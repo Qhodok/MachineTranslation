@@ -24,7 +24,7 @@ public class LinkGrammar {
     public static LinkGrammar initLinkGrammar(String sentence) {
         LinkGrammar linkGrammar = new LinkGrammar();
         for (String token : sentence.split("\\s+")) {
-            linkGrammar.phrases.add(new Grammar(token, "noun"));
+            linkGrammar.phrases.add(new Grammar(token, "kb"));
         }
         return linkGrammar;
     }
@@ -32,7 +32,7 @@ public class LinkGrammar {
     public static LinkGrammar initLinkGrammar(String[] tokens) {
         LinkGrammar linkGrammar = new LinkGrammar();
         for (String token : tokens) {
-            linkGrammar.phrases.add(new Grammar(token, "noun"));
+            linkGrammar.phrases.add(new Grammar(token, "kb"));
         }
         return linkGrammar;
     }
