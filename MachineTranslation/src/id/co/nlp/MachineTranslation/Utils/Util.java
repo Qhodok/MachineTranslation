@@ -49,6 +49,7 @@ public final class Util {
             if (!GRAMMAR_RELATION.containsKey(left_grammar)) {
                 GRAMMAR_RELATION.put(left_grammar, new HashMap<String, String>());
             }
+            //System.out.println(left_grammar+" "+dataSource.getJSONObject("link-grammar").getJSONObject(key).getString("right-grammar"));
             GRAMMAR_RELATION.get(left_grammar).put(dataSource.getJSONObject("link-grammar").getJSONObject(key).getString("right-grammar"), key);
         }
     }

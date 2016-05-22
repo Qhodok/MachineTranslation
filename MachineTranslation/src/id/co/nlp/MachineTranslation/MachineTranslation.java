@@ -27,6 +27,7 @@ public class MachineTranslation {
 
     public MachineTranslation() {
         this.translationModel = new TranslationModel();
+        System.out.println(translationModel);
         this.languageModel = new LanguageModel();
     }
 
@@ -54,6 +55,7 @@ public class MachineTranslation {
             }
             sourceCorpus = temp;
         }
+        System.out.println(translationModel);
         this.translationModel.generateTranslationModel(sourceCorpus, targetCorpus, "\n");
         this.languageModel.addCorpus(sourceCorpus);
         this.languageModel.addCorpus(targetCorpus);

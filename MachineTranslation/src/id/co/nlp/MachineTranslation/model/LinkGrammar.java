@@ -37,7 +37,7 @@ public class LinkGrammar {
         return linkGrammar;
     }
 
-    public LinkGrammar generateLinkGrammar(String sentence) {
+    public  LinkGrammar generateLinkGrammar(String sentence) {
         LinkGrammar linkGrammar = this.generateLinkGrammar(LinkGrammar.initLinkGrammar(sentence), 0);
         int size = linkGrammar.phrases.size();
         while (true) {
@@ -77,11 +77,14 @@ public class LinkGrammar {
     }
 
     protected String checkConnection(String left_class, String right_class) {
+        //System.out.print("check "+left_class+" == "+right_class+" ");
         left_class = Util.GRAMMAR.getString(left_class);
         right_class = Util.GRAMMAR.getString(right_class);
         if (Util.GRAMMAR_RELATION.containsKey(left_class) && Util.GRAMMAR_RELATION.get(left_class).containsKey(right_class)) {
+            //System.out.println("get "+Util.GRAMMAR_RELATION.get(left_class).get(right_class));
             return Util.GRAMMAR_RELATION.get(left_class).get(right_class);
         } else {
+            //System.out.println("empty");
             return null;
         }
     }

@@ -1,9 +1,39 @@
 <word>
+	<white>
+		<translation>putih</translation>
+		<class>
+			ks
+		</class>
+		<language>
+			inggris
+		</language>
+	</white>
+	<rabbit>
+		<translation>kelinci</translation>
+		<class>
+			kb
+		</class>
+		<language>
+			inggris
+		</language>
+	</rabbit>
+	<sleep>
+		<translation>tidur</translation>
+		<class>
+			kkt
+		</class>
+		<class>
+			kki
+		</class>
+		<language>
+			inggris
+		</language>
+	</sleep>		
     <my>
 		<translation>saya</translation>
 		<translation>ku</translation>
 		<class>
-			kg
+			kgp
 		</class>
 		<language>
 			inggris
@@ -12,7 +42,7 @@
     <andika>
         <translation>andika</translation>
         <class>
-            kb
+            nm
         </class>
         <language>
             inggris
@@ -21,7 +51,7 @@
     <putra>
         <translation>putra</translation>
         <class>
-            kb
+            nm
         </class>
         <language>
             inggris
@@ -30,7 +60,7 @@
     <permana>
         <translation>permana</translation>
         <class>
-            kb
+            nm
         </class>
         <language>
             inggris
@@ -39,7 +69,7 @@
     <jakarta>
         <translation>jakarta</translation>
         <class>
-            kb
+            nm
         </class>
         <language>
             inggris
@@ -48,7 +78,7 @@
     <pt>
         <translation>pt</translation>
         <class>
-            kb
+            nm
         </class>
         <language>
             inggris
@@ -58,7 +88,7 @@
         <translation>bahasa</translation>
         <translation>language</translation>
         <class>
-            kb
+            nm
         </class>
         <language>
             indonesia
@@ -67,7 +97,7 @@
     <kinerja>
         <translation>kinerja</translation>
         <class>
-            kb
+            nm
         </class>
         <language>
             inggris
@@ -76,7 +106,7 @@
     <utama>
         <translation>utama</translation>
         <class>
-            kb
+            nm
         </class>
         <language>
             inggris
@@ -109,6 +139,16 @@
 			inggris
 		</language>
 	</is>
+	<was>
+		<translation>sudah</translation>
+		<translation>telah</translation>
+		<class>
+			kki
+		</class>
+		<language>
+			inggris
+		</language>
+	</was>
 	<am>
 		<translation>adalah</translation>
 		<translation></translation>
@@ -141,6 +181,7 @@
 	</live>
 	<in>
 		<translation>di</translation>
+		<translation>dalam</translation>
 		<class>
 			kd
 		</class>
@@ -148,15 +189,34 @@
 			inggris
 		</language>
 	</in>
+	<cage>
+		<translation>kandang</translation>
+		<translation>sangkar</translation>
+		<translation>kurung</translation>
+		<translation>mengurung</translation>
+		<class>
+			kb
+		</class>
+		<language>
+			inggris
+		</language>
+	</cage>
+	<on>
+		<translation>di</translation>
+		<translation>diatas</translation>
+		<class>
+			kd
+		</class>
+		<language>
+			inggris
+		</language>
+	</on>
 	<work>
 		<translation>bekerja</translation>
 		<translation>pekerjaan</translation>
 		<translation>kerja</translation>
 		<translation>mengerjakan</translation>
 		<translation>mengolah</translation>
-		<class>
-			kb
-		</class>
 		<class>
 			kkt
 		</class>
@@ -178,8 +238,9 @@
 	</at>
 	<a>
 		<translation>seorang</translation>
+		<translation>sebuah</translation>
 		<class>
-			kb
+			ksam
 		</class>
 		<language>
 			inggris
@@ -197,6 +258,42 @@
 			inggris
 		</language>
 	</as>
+	<buy>
+		<translation>membeli</translation>
+		<translation>menukar</translation>
+		<translation>menyogok</translation>
+		<translation>pembelian</translation>
+		<class>
+			kkt
+		</class>
+		<language>
+			inggris
+		</language>
+	</buy>
+	<book>
+		<translation>buku</translation>
+		<translation>kitab</translation>
+		<translation>memesan</translation>
+		<translation>pemesanan</translation>
+		<class>
+			kb
+		</class>
+		<language>
+			inggris
+		</language>
+	</book>
+	<new>
+		<translation>baru</translation>
+		<translation>menukar</translation>
+		<translation>menyogok</translation>
+		<translation>pembelian</translation>
+		<class>
+			ks
+		</class>
+		<language>
+			inggris
+		</language>
+	</new>
 	<crises>
 		<translation>gawat</translation>
 		<translation>genting</translation>
@@ -261,7 +358,7 @@
 		<translation>silang</translation>
 		<translation>menyilang</translation>
 		<class>
-			ks kk
+			ks
 		</class>
 		<language>
 			inggris
@@ -7222,6 +7319,15 @@
 			inggris
 		</language>
 	</die>
+	<died>
+		<translation>meninggal</translation>
+		<class>
+			kkt
+		</class>
+		<language>
+			inggris
+		</language>
+	</died>
 	<diesel>
 		<translation>disel</translation>
 		<class>
@@ -12559,134 +12665,154 @@
 
 
 <class>
-    <kb>
-        <subclass>kb</subclass>
-    </kb>
-    <ksam>
-        <subclass>ksam</subclass>
-    </ksam>
-	<ks>
+    <ks>
 		<subclass>ks</subclass>
+		<mean>Kata Sifat</mean>
 	</ks>
-	<verb>
-		<subclass>kki</subclass>
-	</verb>
-	<auxiliary>
-		<subclass>kkt</subclass>
-	</auxiliary>
-	<PRP>
+    <kb>
+		<subclass>kb</subclass>
+		<mean>kata benda</mean>
+	</kb>
+    <kg>
 		<subclass>kg</subclass>
-	</PRP>
-	<preposition>
+		<mean>kata ganti orang</mean>
+	</kg>
+    <kkt>
+		<subclass>kkt</subclass>
+		<mean>diisi ya</mean>
+	</kkt>
+    <kki>
+		<subclass>kki</subclass>
+		<mean>diisi ya</mean>
+	</kki>
+    <kkb>
+		<subclass>kkb</subclass>
+		<mean>modal</mean>
+	</kkb>
+    <kk>
+		<subclass>kk</subclass>
+		<mean>kata keteranangan sifat, benda</mean>
+	</kk>
+    <kd>
 		<subclass>kd</subclass>
-	</preposition>
-	<pronoun>
-		<subclass>prn</subclass>
-	</pronoun>
-	<PRPN>
-		<subclass>PRPN</subclass>
-	</PRPN>
-	<S>
-		<subclass>S</subclass>
-	</S>
-	<O>
-		<subclass>O</subclass>
-	</O>
-	<A>
-		<subclass>A</subclass>
-	</A>
-	<D>
-		<subclass>D</subclass>
-	</D>
-	<J>
-		<subclass>J</subclass>
-	</J>
-	<B>
-		<subclass>B</subclass>
-	</B>
-	<NNX>
-		<subclass>NNX</subclass>
-	</NNX>
-	<PRN>
-		<subclass>PRN</subclass>
-	</PRN>
-	<ANNX>
-		<subclass>ANNX</subclass>
-	</ANNX>
-	<APRPN>
-		<subclass>APRPN</subclass>
-	</APRPN>
-	<NNXPRPN>
-		<subclass>NNXPRPN</subclass>
-	</NNXPRPN>            
+		<mean>kata yang bersama objeknya</mean>
+	</kd>
+    <kseru>
+		<subclass>kseru</subclass>
+		<mean>ucapan pendek yang digunakan untuk mengugkapkan emosi</mean>
+	</kseru>
+    <ksam>
+		<subclass>ksam</subclass>
+		<mean>penghubung dua kata</mean>
+	</ksam>
+    <kst>
+		<subclass>kst</subclass>
+		<mean>diisi y</mean>
+	</kst>
+    <kr1>
+		<subclass>kr1</subclass>
+		<mean></mean>
+	</kr1>
+    <kr2>
+		<subclass>kr2</subclass>
+		<mean></mean>
+	</kr2>
+    <kr3>
+		<subclass>kr3</subclass>
+		<mean></mean>
+	</kr3>
+    <kr4>
+		<subclass>kr4</subclass>
+		<mean></mean>
+	</kr4>
+    <kr5>
+		<subclass>kr5</subclass>
+		<mean></mean>
+	</kr5>
+    <kr6>
+		<subclass>kr6</subclass>
+		<mean></mean>
+	</kr6>
+    <kr7>
+		<subclass>kr7</subclass>
+		<mean></mean>
+	</kr7>
+    <kr8>
+		<subclass>kr8</subclass>
+		<mean></mean>
+	</kr8>
+    <nm>
+		<subclass>nm</subclass>
+		<mean>nama</mean>
+	</nm>
+	<kgp>
+		<subclass>kgp</subclass>
+		<mean>kata ganti kepunyaan</mean>
+	</kgp>
 </class>
 <reorder-rule>	
 	<rule>
-		A
+		kr1
+	</rule>	
+	<rule>
+		kr2
+	</rule>	
+	<rule>
+		kr3
+	</rule>	
+	<rule>
+		kr4
+	</rule>	
+	<rule>
+		kr5
+	</rule>	
+	<rule>
+		kr6
 	</rule>
 	<rule>
-		NN
+		kr7
 	</rule>
 	<rule>
-		PRPN
-	</rule>
-	<rule>
-		ANN
-	</rule>
-	<rule>
-		APRN
-	</rule>
-	<rule>
-		NNPRPN
+		kr8
 	</rule>
 </reorder-rule>
 <link-grammar>
-	<S>
-		<left-grammar>kb</left-grammar>
-		<right-grammar>verb</right-grammar>
-	</S>
-	<O>
-		<left-grammar>verb</left-grammar>
-		<right-grammar>object</right-grammar>
-	</O>
-	<A>
+	<kr1>
 		<left-grammar>ks</left-grammar>
 		<right-grammar>kb</right-grammar>
-	</A>
-	<D>
-		<left-grammar>determiner</left-grammar>
+	</kr1>
+	<kr2>
+		<left-grammar>kgp</left-grammar>
 		<right-grammar>kb</right-grammar>
-	</D>
-	<J>
-		<left-grammar>preposition</left-grammar>
-		<right-grammar>object</right-grammar>
-	</J>
-	<I>
-		<left-grammar>kb</left-grammar>
-		<right-grammar>inversion-case</right-grammar>
-	</I>
-	<B>
-		<left-grammar>verb</left-grammar>
-		<right-grammar>wh-word</right-grammar>
-	</B>
-	<NNX>
+	</kr2>
+	<kr3>
 		<left-grammar>kb</left-grammar>
 		<right-grammar>kb</right-grammar>
-	</NNX>
-	<PRPN>
-		<left-grammar>PRP</left-grammar>
-		<right-grammar>kb</right-grammar>
-	</PRPN>
-	<ANNX>
-		<left-grammar>A</left-grammar>
-		<right-grammar>NNX</right-grammar>
-	</ANNX>
-	<APRPN>
-		<left-grammar>A</left-grammar>
-		<right-grammar>PRPN</right-grammar>
-	</APRPN>
-	<NNXPRPN>
-		<left-grammar>NNX</left-grammar>
-		<right-grammar>PRPN</right-grammar>
-	</NNXPRPN>            
+	</kr3>
+	<kr4>
+		<left-grammar>kr1</left-grammar>
+		<right-grammar>kr3</right-grammar>
+	</kr4>
+	<kr5>
+		<left-grammar>kr1</left-grammar>
+		<right-grammar>kr2</right-grammar>
+	</kr5>
+	<kr6>
+		<left-grammar>kr3</left-grammar>
+		<right-grammar>kr2</right-grammar>
+	</kr6>   
+	<kr7> 
+		<left-grammar>ks</left-grammar>
+		<right-grammar>kr1</right-grammar>		
+	</kr7> 
+	<kr8> 
+		<left-grammar>ks</left-grammar>
+		<right-grammar>kr7</right-grammar>		
+	</kr8>
 </link-grammar>
+<group>
+	<nm>
+		<left-grammar>nm</left-grammar>
+		<right-grammar>nm</right-grammar>
+	</nm>
+</group>
