@@ -3,9 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/H:/Users/Andika/Documents/Project/MachineTranslation/MachineTranslation/src/id/co/nlp/MachineTranslation/model/LinkGrammar.java</file>
             <file>file:/H:/Users/Andika/Documents/Project/MachineTranslation/MachineTranslation/src/id/co/nlp/MachineTranslation/MachineTranslation.java</file>
-            <file>file:/H:/Users/Andika/Documents/Project/MachineTranslation/MachineTranslation/src/id/co/nlp/MachineTranslation/model/LanguageModel.java</file>
+            <file>file:/H:/Users/Andika/Documents/Project/MachineTranslation/MachineTranslation/src/id/co/nlp/MachineTranslation/model/Grammar.java</file>
         </group>
     </open-files>
 </project-private>
