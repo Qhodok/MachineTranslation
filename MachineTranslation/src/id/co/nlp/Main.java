@@ -24,7 +24,7 @@ public class Main {
         String source = Util.read("sample" + File.separatorChar + "koreng.txt").trim().toLowerCase();
         //MachineTranslation machineTranslation = new MachineTranslation(System.getProperty("user.home") + File.separator + ".machine_translation");
         MachineTranslation machineTranslation = new MachineTranslation();
-        machineTranslation.training(source, target,"sample"+File.separatorChar+"dictionary3.xml", 2,true);
+        machineTranslation.training(source, target,"sample"+File.separatorChar+"dictionary.xml", 2,true);
         System.out.println(machineTranslation.translation("my name is hhaaha hahaha",true));
         System.out.println(machineTranslation.translation("my name",true));
         System.out.println(machineTranslation.translation("new white book",true));
