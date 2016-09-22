@@ -81,6 +81,15 @@ public class TranslationModel implements java.io.Serializable {
         this.generateTranslationCombination(targetCase.split("\\s+"), 0, new String[targetCase.split("\\s+").length], result, new double[targetCase.split("\\s+").length]);
         return result;
     }
+    
+    
+    protected String arrayToString(String[] words) {
+        String result = "";
+        for (String word : words) {
+            result += word + " ";
+        }
+        return result.trim();
+    }
 
     protected void generateTranslationCombination(String[] target, int index, String[] partialResult, HashMap<String[], Double> result, double[] score) {
         if (index < target.length) {
@@ -97,7 +106,7 @@ public class TranslationModel implements java.io.Serializable {
             } else {
                 for (String word : this.wordTranslation.get(target[index]).keySet()) {
                     partialResult[index] = word;
-                    //System.out.println(word + " " + target[index]);
+                    //System.out.println("else "+word + " " + target[index]);
                     if (this.wordTranslation.get(target[index]).containsKey(word)) {
                         score[index] = this.wordTranslation.get(target[index]).get(word);
                     }
@@ -109,7 +118,7 @@ public class TranslationModel implements java.io.Serializable {
             for (double data : score) {
                 resultScore *= data;
             }
-            result.put(partialResult, resultScore);
+            result.put(partialResult.clone(), resultScore);
         }
     }
 

@@ -80,7 +80,7 @@ public class MachineTranslation {
         }
         String result = "";
         double score = 0, tempScore = 0;
-
+        System.out.println(this.translationModel);
         HashMap<String[], Double> computeTranslation = this.translationModel.computeTranslation(sentence);
         for (String[] listOfWord : computeTranslation.keySet()) {
             double sourceProbabilities = languageModel.computeProbabilities(sentence.trim().split("\\s+"));
