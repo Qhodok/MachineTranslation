@@ -21,6 +21,12 @@ public class LinkGrammar {
         this.phrases = new ArrayList<>();
     }
 
+    /**
+     *
+     * @param sentence kalimat yg akan ditambahkan keterangan katanya
+     * @return function yg berfungsi untuk menambahkan keterang kata pada sebuah
+     * string
+     */
     public static LinkGrammar initLinkGrammar(String sentence) {
         LinkGrammar linkGrammar = new LinkGrammar();
         for (String token : sentence.split("\\s+")) {
@@ -29,6 +35,12 @@ public class LinkGrammar {
         return linkGrammar;
     }
 
+    /**
+     *
+     * @param tokens kalimat yg akan ditambahkan keterangan katanya
+     * @return function yg berfungsi untuk menambahkan keterang kata pada sebuah
+     * string
+     */
     public static LinkGrammar initLinkGrammar(String[] tokens) {
         LinkGrammar linkGrammar = new LinkGrammar();
         for (String token : tokens) {
@@ -37,7 +49,13 @@ public class LinkGrammar {
         return linkGrammar;
     }
 
-    public  LinkGrammar generateLinkGrammar(String sentence) {
+    /**
+     *
+     * @param sentence kalimat yg akan ditambahkan hubungan antar kata
+     * @return function yg berfungsi untuk membuat hubungan atau aturan dari
+     * kata kata yg berdekatan
+     */
+    public LinkGrammar generateLinkGrammar(String sentence) {
         LinkGrammar linkGrammar = this.generateLinkGrammar(LinkGrammar.initLinkGrammar(sentence), 0);
         int size = linkGrammar.phrases.size();
         while (true) {
@@ -49,6 +67,14 @@ public class LinkGrammar {
         return linkGrammar;
     }
 
+    /**
+     *
+     * @param linkGrammar
+     * @param index nomor urutan kata yg akan diprosess
+     * @return function yg berfungsi untuk membuat hubungan atau aturan dari
+     * kata kata yg berdekatan
+     *
+     */
     protected LinkGrammar generateLinkGrammar(LinkGrammar linkGrammar, int index) {
         if (index < linkGrammar.phrases.size() - 2) {
             linkGrammar = this.generateLinkGrammar(linkGrammar, index + 1);
@@ -76,6 +102,13 @@ public class LinkGrammar {
         return linkGrammar;
     }
 
+    /**
+     *
+     * @param left_class kata pertama
+     * @param right_class kata setelahnya
+     * @return mencari hungungan dari 2 kata. jika 2 kata itu memiliki hungan
+     * maka, function akan mengembalikan nama hubungan kata tersebut
+     */
     protected String checkConnection(String left_class, String right_class) {
         //System.out.print("check "+left_class+" == "+right_class+" ");
         left_class = Util.GRAMMAR.getString(left_class);
@@ -89,6 +122,11 @@ public class LinkGrammar {
         }
     }
 
+    /**
+     *
+     * @param linkGrammar
+     * @return konversi dari linkgramer kedalam bentuk single string
+     */
     public String toString(LinkGrammar linkGrammar) {
         String sentence = "";
         for (Grammar phrase : linkGrammar.phrases) {
@@ -101,6 +139,11 @@ public class LinkGrammar {
         return sentence.replaceAll("\\s+", " ").trim();
     }
 
+    /**
+     *
+     * @param phrase
+     * @return konversi dari grammar kedalam bentuk single string
+     */
     public String toString(Grammar phrase) {
         String sentence = "";
         if (phrase.leftGrammar == null) {

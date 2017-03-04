@@ -19,19 +19,27 @@ import java.util.logging.Logger;
  *
  * @author Andika
  */
-public class MachineTranslation {
+public class MachineTranslator {
 
     protected TranslationModel translationModel;
     protected LanguageModel languageModel;
     protected String dictFile;
 
-    public MachineTranslation() {
+    /**
+     * Controller
+     *
+     */
+    public MachineTranslator() {
         this.translationModel = new TranslationModel();
         System.out.println(translationModel);
         this.languageModel = new LanguageModel();
     }
 
-    public MachineTranslation(String pathfile) {
+    /**
+     * pathfile = lokasi hasil data latih constructor ini wajib dipanggil saat
+     * melakukan testing
+     */
+    public MachineTranslator(String pathfile) {
         try {
             Util.init(pathfile + File.separator + "dict.xml");
             this.translationModel = (TranslationModel) Util.deserializing(pathfile + File.separator + "tm.ser");
@@ -41,12 +49,19 @@ public class MachineTranslation {
         }
     }
 
+    /**
+     * sourceCorpus = lokasi corpus inggris berada targetCorpus = lokasi corpus
+     * indonesia berada dict = lokasi kamus kata berada maxorder = maksimun
+     * order dari ngram useReordering = penggunaan methode reordering
+     * --------------------------------------------- prosedur yg berfungsi untuk
+     * melatih data terpilih menjadi Translation Model, Languange Model, dll *
+     */
     public void training(String sourceCorpus, String targetCorpus, String dict, int maxOrder, boolean useReordering) {
         try {
             this.dictFile = dict;
             Util.init(dict);
         } catch (IOException ex) {
-            Logger.getLogger(MachineTranslation.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MachineTranslator.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (useReordering) {
             String temp = "";
@@ -63,18 +78,29 @@ public class MachineTranslation {
         this.languageModel.generateLM(maxOrder);
     }
 
+    /**
+     * pathfile = lokasi penyimpanan hasil pelatihan
+     * ---------------------------------------------- prosedur untuk menyimpan
+     * hasil dari pelatihan
+     */
     public void save(String pathfile) {
         try {
             Util.serializing(pathfile + File.separator + "lm.ser", this.languageModel);
             Util.serializing(pathfile + File.separator + "tm.ser", this.translationModel);
-            Util.write(pathfile + File.separator + "dict.xml", Util.read(this.dictFile));
+            Util.writing(pathfile + File.separator + "dict.xml", Util.reading(this.dictFile));
             System.out.println("saved");
         } catch (IOException ex) {
-            Logger.getLogger(MachineTranslation.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MachineTranslator.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public String translation(String sentence, boolean useReordering) {
+    /**
+     * sentence = kalimat yang akan ditranslate useReordering = penggunaan
+     * metode reordering
+     * --------------------------------------------------------------- Prosedur
+     * untuk mentranslate bahasa inggris ke bahasa indonesia
+     */
+    public String translating(String sentence, boolean useReordering) {
         if (useReordering) {
             sentence = WordReordering.reordering(sentence);
         }
@@ -94,6 +120,12 @@ public class MachineTranslation {
         return result;
     }
 
+    /**
+     * words = list kata
+     * ------------------------------------------------------------ prosedur
+     * untuk mengubah string arrah menjadi single string
+     *
+     */
     protected String arrayToString(String[] words) {
         String result = "";
         for (String word : words) {

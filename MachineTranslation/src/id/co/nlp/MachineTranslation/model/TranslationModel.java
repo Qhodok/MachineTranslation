@@ -19,7 +19,14 @@ public class TranslationModel implements java.io.Serializable {
     public TranslationModel() {
         this.wordTranslation = new HashMap<>();
     }
-
+/**
+ * 
+ * @param sourceCorpus korpus bahasa inggris
+ * @param targetCorpus korpus bahasa indonesia
+ * @param delimeter karakter pembatas
+ * function yg berfungsi untuk membuat model translate. yg mana model ini akan dipakai saat pentranslatan sebuah kalimat. 
+ * model ini mengandung bobot bobot dari tiap kombinasi kata yg akan diterjemahkan
+ */
     public void generateTranslationModel(String sourceCorpus, String targetCorpus, String delimeter) {
         String[] sourceSentences = sourceCorpus.split(delimeter);
         String[] targetSentences = targetCorpus.split(delimeter);
@@ -58,6 +65,14 @@ public class TranslationModel implements java.io.Serializable {
         }
     }
 
+    /**
+     * 
+     * @param index index kata yg akan ditambahkan
+     * @param sourceWords deret kata yg akan di terjemahkan
+     * @param targetWords deret kata hasil terjemahan
+     * @return 
+     * function yg berfungsi untuk menambahkan padanan kata dan terjemahan beserta bobot dari kombinasi terjemahan
+     */
     protected boolean addTranslation(int index, String[] sourceWords, String[] targetWords) {
         if (Util.DICTIONARY.has(sourceWords[index])) {
             if (this.wordTranslation.containsKey(sourceWords[index])) {
@@ -76,13 +91,24 @@ public class TranslationModel implements java.io.Serializable {
         }
     }
 
+    /**
+     * 
+     * @param targetCase kalimat yg akan ditranslate
+     * @return 
+     * menghitung bobot dari masing masing kemungkinan hasil terjemahan yg dilihat dari bobot dari hasil terjemahan terhadap kata yg akan diterjemahkan
+     */
     public HashMap<String[], Double> computeTranslation(String targetCase) {
         HashMap<String[], Double> result = new HashMap<>();
         this.generateTranslationCombination(targetCase.split("\\s+"), 0, new String[targetCase.split("\\s+").length], result, new double[targetCase.split("\\s+").length]);
         return result;
     }
     
-    
+    /**
+     * 
+     * @param words deret kata
+     * @return 
+     * konversi dari array ke single string
+     */
     protected String arrayToString(String[] words) {
         String result = "";
         for (String word : words) {
@@ -90,7 +116,15 @@ public class TranslationModel implements java.io.Serializable {
         }
         return result.trim();
     }
-
+/**
+ * 
+ * @param target deret kata yang akan di translate
+ * @param index index kata yg akan di translate
+ * @param partialResult hasil sementara dari penterjemahan
+ * @param result hasil penterjemahan beserta score
+ * @param score score awal
+ * function yg berfungsi untuk menerjemahkan target menjadi beberapa hasil terjemahan beserta bobotnya
+ */
     protected void generateTranslationCombination(String[] target, int index, String[] partialResult, HashMap<String[], Double> result, double[] score) {
         if (index < target.length) {
             if (!this.wordTranslation.containsKey(target[index])) {

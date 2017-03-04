@@ -16,6 +16,15 @@ public class WordReordering {
     public WordReordering() {
 
     }
+    /**
+     * 
+     * @param sentence kalimat
+     * @return kalimat
+     * berfungsi untuk membalikan susunan kata sesuai dengan aturannya
+     * dalam aturan bahasa inggri terkadang ada deret kata yg ditukar posisinya 
+     * seperti "my book" yg artinya "buku saya" posisi antara my(saya) dan book(buku) terbalik
+     * maka akan dilakukan formating untuk membalikkan kembali
+     */
 
     public static String reordering(String sentence) {
         LinkGrammar linkGrammar = LinkGrammar.initLinkGrammar(sentence);
@@ -26,6 +35,15 @@ public class WordReordering {
         return linkGrammar.toString(linkGrammar);
     }
 
+    /**
+     * 
+     * @param phrase prasa kata
+     * @return 
+     * berfungsi untuk membalikan susunan kata sesuai dengan aturannya
+     * dalam aturan bahasa inggri terkadang ada deret kata yg ditukar posisinya 
+     * seperti "my book" yg artinya "buku saya" posisi antara my(saya) dan book(buku) terbalik
+     * maka akan dilakukan formating untuk membalikkan kembali
+     */
     protected static Grammar reordering(Grammar phrase) {
         if (phrase != null) {
             if (Util.REORDER_RULE.contains(phrase.classes.get(0))) {

@@ -5,7 +5,7 @@
  */
 package id.co.nlp.MachineTranslationAPP;
 
-import id.co.nlp.MachineTranslation.MachineTranslation;
+import id.co.nlp.MachineTranslation.MachineTranslator;
 import java.io.File;
 import javax.swing.JOptionPane;
 
@@ -19,7 +19,7 @@ public class FormTesting extends javax.swing.JFrame {
      * Creates new form main
      */
     protected FormTraining trainingForm;
-    protected MachineTranslation machineTranslation;
+    protected MachineTranslator machineTranslation;
 
     public FormTesting() {
         initComponents();
@@ -27,7 +27,7 @@ public class FormTesting extends javax.swing.JFrame {
         if (new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "tm.ser").exists()
                 &&new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "lm.ser").exists()
                 && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "dict.xml").exists()) {
-            this.machineTranslation = new MachineTranslation(System.getProperty("user.home") + File.separator + ".machine_translation");
+            this.machineTranslation = new MachineTranslator(System.getProperty("user.home") + File.separator + ".machine_translation");
         }
         this.jMenu1.setVisible(false);
     }
@@ -132,14 +132,14 @@ public class FormTesting extends javax.swing.JFrame {
             if (new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "tm.ser").exists()
                     && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "lm.ser").exists()
                     && new File(System.getProperty("user.home") + File.separator + ".machine_translation" + File.separator + "dict.xml").exists()) {
-                this.machineTranslation = new MachineTranslation(System.getProperty("user.home") + File.separator + ".machine_translation");
-                this.indoText.setText(this.machineTranslation.translation(this.englishText.getText(), true));
+                this.machineTranslation = new MachineTranslator(System.getProperty("user.home") + File.separator + ".machine_translation");
+                this.indoText.setText(this.machineTranslation.translating(this.englishText.getText().toLowerCase(), true));
             }else{
                 JOptionPane.showMessageDialog(this, "data tidak ada, silahkan training data terlebih dahulu");
                 System.out.println("data tidak ada, silahkan training data terlebih dahulu");
             }
         } else {
-            this.indoText.setText(this.machineTranslation.translation(this.englishText.getText(), true));
+            this.indoText.setText(this.machineTranslation.translating(this.englishText.getText(), true));
         }
     }//GEN-LAST:event_translateActionPerformed
 

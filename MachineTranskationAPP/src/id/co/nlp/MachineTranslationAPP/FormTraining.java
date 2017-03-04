@@ -5,7 +5,7 @@
  */
 package id.co.nlp.MachineTranslationAPP;
 
-import id.co.nlp.MachineTranslation.MachineTranslation;
+import id.co.nlp.MachineTranslation.MachineTranslator;
 import id.co.nlp.MachineTranslation.Utils.Util;
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class FormTraining extends javax.swing.JFrame {
      */
     protected FormTesting formTesting;
     protected JFileChooser fileChooser;
-    protected MachineTranslation machineTranslation;
+    protected MachineTranslator machineTranslation;
     protected String sourceFile = "";
     protected String targetFile = "";
     protected String dictFile = "";
@@ -35,7 +35,7 @@ public class FormTraining extends javax.swing.JFrame {
     public FormTraining(FormTesting formTesting) {
         this.formTesting = formTesting;
         this.fileChooser = new JFileChooser();
-        this.machineTranslation = new MachineTranslation();
+        this.machineTranslation = new MachineTranslator();
         initComponents();
         this.jMenu1.setVisible(false);
     }
@@ -311,7 +311,7 @@ public class FormTraining extends javax.swing.JFrame {
         } else {
             try {
                 long startTime = System.currentTimeMillis();
-                this.machineTranslation.training(Util.read(this.sourceFile).toLowerCase(), Util.read(this.targetFile).toLowerCase(), this.dictFile, 2, true);
+                this.machineTranslation.training(Util.reading(this.sourceFile).toLowerCase(), Util.reading(this.targetFile).toLowerCase(), this.dictFile, 2, true);
                 new File(System.getProperty("user.home") + File.separator + ".machine_translation").mkdirs();
                 this.machineTranslation.save(System.getProperty("user.home") + File.separator + ".machine_translation");
                 long endTime = System.currentTimeMillis();

@@ -25,11 +25,20 @@ public class LanguageModel implements java.io.Serializable {
         this.delimeter = "";
         this.corpus = "";
     }
-    
+    /**
+     *
+     * @param corpus data atau bahan bahan bahasa yg terkumpul dalam 1 sumber
+     *
+     * function yg berfungsi untuk menambahkan korpus baru
+     */
     public void addCorpus(String corpus) {
         this.corpus += corpus + "\n";
     }
-
+/**
+ *
+ * @param delimeter pembatas dalam pemotongan string
+ * function yg berfungsi untuk menambahkan delimiter yg digunakan saat pemotongan string
+ */
     public void addDelimeter(String delimeter) {
         if (this.delimeter.isEmpty()) {
             this.delimeter = "(" + delimeter + ")";
@@ -37,7 +46,11 @@ public class LanguageModel implements java.io.Serializable {
             this.delimeter += "|(" + delimeter + ")";
         }
     }
-
+/**
+ *
+ * @param maxgram maximum jumlah kata dalam potongan string
+ * function yg berfungsi untuk mengenerate language model
+ */
     public void generateLM(int maxgram) {
         String[] tempNode = new String[maxgram];
         String prev = "", next = "";
@@ -83,7 +96,9 @@ public class LanguageModel implements java.io.Serializable {
         this.corpus = "";
         this.delimeter = "";
     }
-
+/**
+ * function yg berfungsi untuk melakukan komputasi frequensi dan bobot pada kumpulan ngram
+ */
     protected void computeNgram() {
         String prev = "", next = "";
         double currentValue = 0, totalValue = 0;
@@ -106,7 +121,13 @@ public class LanguageModel implements java.io.Serializable {
             }
         }
     }
-
+/**
+ * 
+ * @param target list kata yg akan dihitung 
+ * @return nilai(bobot) dari kumpulan kata
+ * function yg berfungsi untuk menjumlahkan bobot dari setiap kata
+ * 
+ */
     public double computeProbabilities(String[] target) {
         String temp = "";
         double probabilities = 0;
@@ -130,7 +151,12 @@ public class LanguageModel implements java.io.Serializable {
         }
         return probabilities;
     }
-
+/**
+ * 
+ * @param words daftar kata
+ * @return string
+ * function untuk menyatukan deret kata menjadi sebuah string
+ */
     protected String arrayToString(String[] words) {
         String result = "";
         for (String word : words) {
@@ -138,7 +164,14 @@ public class LanguageModel implements java.io.Serializable {
         }
         return result.trim();
     }
-
+/**
+ * 
+ * @param words daftar kata
+ * @param start index awal yg akan di satukan
+ * @param stop batasan yg akan disatukan
+ * @return string
+ * function untuk menyatukan deret kata menjadi sebuah string
+ */
     protected String arrayToString(String[] words, int start, int stop) {
         String result = "";
         for (int i = start; i <= stop; i++) {

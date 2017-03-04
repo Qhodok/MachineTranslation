@@ -29,8 +29,14 @@ public final class Util {
     public static JSONArray REORDER_RULE;
     public static HashMap<String, HashMap<String, String>> GRAMMAR_RELATION;
 
+    /**
+     * @param pathfile lokasi dari kamus berada
+     * @throws IOException
+     *
+     * prosedure untuk menginisiasi atribut atribut yg digunakan
+     */
     public static void init(String pathfile) throws IOException {
-        JSONObject dataSource = XML.toJSONObject(read(pathfile).toLowerCase());
+        JSONObject dataSource = XML.toJSONObject(reading(pathfile).toLowerCase());
         DICTIONARY = dataSource.getJSONObject("word");
         GRAMMAR = new JSONObject();
         for (String classes : dataSource.getJSONObject("class").keySet()) {
@@ -54,7 +60,16 @@ public final class Util {
         }
     }
 
-    public static String read(String path) throws FileNotFoundException, IOException {
+    /**
+     *
+     * @param path lokasi dari file
+     * @return isi file
+     * @throws FileNotFoundException
+     * @throws IOException
+     *
+     * fuction yg berfungsi untuk membaca sebuah file
+     */
+    public static String reading(String path) throws FileNotFoundException, IOException {
         File file = new File(path);
         long l = file.length();
         byte[] b = new byte[(int) l];
@@ -63,17 +78,33 @@ public final class Util {
         return new String(b);
     }
 
-    public static void write(String Url, String Teks) {
+    /**
+     *
+     * @param pathfile lokasi penyimpanan
+     * @param text text yang akan disimpan
+     */
+    public static void writing(String pathfile, String text) {
         FileWriter writer;
         try {
-            writer = new FileWriter(Url);
-            writer.write(Teks);
+            writer = new FileWriter(pathfile);
+            writer.write(text);
             writer.close();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
+    /**
+     *
+     * @param pathfile lokasi data berada
+     * @return hasil converting dari byte ke object
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws ClassNotFoundException
+     *
+     * function yg berfungsi untuk mengkonvert deretan byte menjadi sebuah
+     * object
+     */
     public static Object deserializing(String pathfile) throws FileNotFoundException, IOException, ClassNotFoundException {
         FileInputStream fileIn = new FileInputStream(pathfile);
         ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -83,7 +114,17 @@ public final class Util {
         return object;
     }
 
-    public static void serializing(String pathfile,Object object) throws FileNotFoundException, IOException {
+    /**
+     *
+     * @param pathfile lokasi penyimpanan
+     * @param object object yg akan dikonvert ke byte untuk disimpan
+     * @throws FileNotFoundException
+     * @throws IOException
+     *
+     * proses dimana state daripada objek tersebut dapat kita simpan menjadi
+     * bentuk deretan byte
+     */
+    public static void serializing(String pathfile, Object object) throws FileNotFoundException, IOException {
         FileOutputStream fileOut = new FileOutputStream(pathfile);
         ObjectOutputStream out = new ObjectOutputStream(fileOut);
         out.writeObject(object);
